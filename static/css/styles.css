@@ -1,0 +1,76 @@
+html {
+    position: relative;
+}
+
+body {
+    padding-top: 4.5rem;
+}
+
+main {
+    min-height: 76vh;
+}
+
+.footer {
+    width: 100%;
+}
+
+.input_login {
+    display: block;
+}
+
+.error_list ul,
+.help_text ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.errorlist+li {
+    display: none;
+}
+
+.account-avatar {
+    width: 20vw;
+    height: 20vw;
+    border-radius: 50%;
+    display: block;
+}
+
+.color-cyan {
+    background-color: cyan;
+}
+
+a {
+    color: blue;
+    text-decoration: none;
+}
+
+.infoc {
+    background-color: rgb(190, 190, 190);
+}
+
+.form-wrapper {
+    margin: 1em;
+}
+
+.form-wrapper>textarea,
+.form-wrapper>input {
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+label.form-label {
+    display: block !important;
+}

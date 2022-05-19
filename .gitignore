@@ -1,2 +1,6 @@
 venv
 __pycache__
+static/fontawesome/webfonts
+static/fontawesome/metadata
+static/fontawesome/LICENSE.txt
+static/fontawesome/attribution.js
