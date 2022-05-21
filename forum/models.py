@@ -20,7 +20,7 @@ class Posts(models.Model):
 
 	def save(self, *args, **kwargs):
 		if not self.slugPost:
-			self.slugPost = slugify(self.pk, self.authorPost, self.titlePost)
+			self.slugPost = slugify(self.pk, self.authorPost)
 		super().save(*args, **kwargs)
 
 

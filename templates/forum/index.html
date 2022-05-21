@@ -1,17 +1,21 @@
-{% extends 'base.html' %}
-
-{% block corps%}
-{% for post in posts%}
-<div class="card col-lg-5">
-	<div class="card-header d-flex justify-content-around">
-	  <a href="" class="text-info d-block">Name Firstname</a>
-	  <h5 class="text-center fw-bold card-titre ">{{ post.authrPost }}</h5>
-	</div>
-	<div class="card-body">
-	  <a href="." class="card-link text-muted text-decoration-none"><p class="card-text">
-		{{post.authrPost || truncatewords:15}}
-	  </p></a>
-	</div>
+{% extends 'base.html' %} {% block corps%}
+<div class="container">
+	
+    {% for post in posts %}
+    <div class="row mt-4">
+	<div class="card col-8 border-0 shadow p-0">
+        <div class="card-header d-flex justify-content-between">
+            <a href="" class="text-info d-block">{{post.authorPost}}</a>
+            <h5 class="text-center fw-bold card-titre">
+                {{ post.titlePost }}
+            </h5>
+        </div>
+        <div class="card-body">
+            <a href="." class="card-link text-muted text-decoration-none"><p class="card-text">{{post.contentPost}}</p></a
+            >
+        </div>
+    </div>
 </div>
-{% endfor %}
+    {% endfor %}
+</div>
 {%endblock%}
