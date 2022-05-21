@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "forum"
+    "forum",
+    "users"
 ]
 
 MIDDLEWARE = [
@@ -77,9 +78,9 @@ WSGI_APPLICATION = "mkforum.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "mkforumdb",
-        "USER": "pmAdmin",
-        "PASSWORD": "AdminPass",
+        "NAME": "mkf_db",
+        "USER": "root",
+        "PASSWORD": "root",
         "HOST": "localhost",
         "PORT": "3306",
         # sqlite
