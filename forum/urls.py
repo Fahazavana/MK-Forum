@@ -2,8 +2,8 @@ from django.urls import path
 from . import views
 
 
-appname = "forum_app"
-
+app_name = "forum_app"
 urlpatterns = [
-    path('index/',views.indexView.as_view(),name='index')
+    path('index/', views.indexView.as_view(), name='index'),
+    path('read/<int:pk>/', views.readPost.as_view(), name='read')
 ]

@@ -1,6 +1,7 @@
 from django.db import models
 from users.models import User
 from django.utils.text import slugify
+from django.urls import reverse
 
 # Create your models here.
 
@@ -20,8 +21,11 @@ class Posts(models.Model):
 
 	def save(self, *args, **kwargs):
 		if not self.slugPost:
-			self.slugPost = slugify(self.pk, self.authorPost)
+			self.slugPost = slugify(self.id, self.authorPost)
 		super().save(*args, **kwargs)
+
+	def get_absolute_url(self):
+		return reverse("forum_app:read", kwargs={'pk': self.pk})
 
 
 class PostComment(models.Model):

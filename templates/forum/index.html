@@ -11,7 +11,7 @@
             </h5>
         </div>
         <div class="card-body">
-            <a href="." class="card-link text-muted text-decoration-none"><p class="card-text">{{post.contentPost}}</p></a
+            <a href="{% url 'forum_app:read' post.pk %}" class="card-link text-black text-decoration-none"><p class="card-text">{{post.contentPost|truncatewords:15}}</p></a
             >
         </div>
     </div>

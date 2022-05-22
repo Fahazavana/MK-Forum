@@ -18,7 +18,7 @@ from django.urls import path, include
 
 
 from forum.views import indexView
-
+from django.conf import settings
 
 
 # On va utiliser include afin de 
@@ -26,5 +26,11 @@ from forum.views import indexView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',indexView.as_view(),name="index"),
-    path('forum/',include("forum.urls"))
-]
+    path('forum/',include("forum.urls")),]
+
+
+
+if settings.DEBUG : 
+	print("Here")
+	import debug_toolbar
+	urlpatterns=[path("__debug__/",include("debug_toolbar.urls")),]+urlpatterns
