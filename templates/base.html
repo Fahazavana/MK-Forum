@@ -23,13 +23,14 @@
         <a href="" class="navbar-brand">
           <span class="fw-bold"><i class="fas fa-book-open"></i> MK </span>
         </a>
+        {% if user.is_authenticated %}
         <a href="" class="nav-link d-none d-md-block">
           <span class="nav-item text-white"><i class="fas fa-user"></i> Profile </span>
         </a>
         <a href="" class="nav-link d-none d-md-block">
           <span class="nav-item text-white"><i class="fas fa-plus"></i> Publier</span>
         </a>
-  
+        {% endif %}
         <!-- Togle button for mobile-->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav"
           aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,6 +39,7 @@
   
         <div class="collapse navbar-collapse justify-content-end align-center" id="main-nav">
           <ul class="navbar-nav">
+            {% if user.is_authenticated %}
             <li class="nav-item d-md-none">
               <a href="" class="nav-link"><i class="fas fa-user"></i> Profile</a>
             </li>
@@ -50,6 +52,7 @@
             <li class="nav-item">
               <a href="" class="nav-link text-white"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
             </li>
+            {% endif %}
           </ul>
         </div>
       </div>
