@@ -16,6 +16,8 @@
 
         <!-- Custom Css -->
         <link href="{% static 'css/styles.css'%}" rel="stylesheet" />
+        {% block styles %}
+        {%endblock%}
     </head>
 
     <body>
@@ -33,7 +35,7 @@
                         ><i class="fas fa-user"></i> Profile
                     </span>
                 </a>
-                <a href="" class="nav-link d-none d-md-block">
+                <a href="{% url 'forum_app:create' %}" class="nav-link d-none d-md-block">
                     <span class="nav-item text-white"
                         ><i class="fas fa-plus"></i> Publier</span
                     >
@@ -64,7 +66,7 @@
                             >
                         </li>
                         <li class="nav-item d-md-none">
-                            <a href="#Connexion" class="nav-link text-white"
+                            <a href="{% url 'forum_app:create' %}" class="nav-link text-white"
                                 ><i class="fas fa-plus"></i> Publier</a
                             >
                         </li>
