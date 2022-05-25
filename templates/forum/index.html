@@ -1,21 +1,15 @@
-{% extends 'base.html' %} {% block corps%}
-<div class="container">
-	
-    {% for post in posts %}
-    <div class="row mt-4">
-	<div class="card col-8 border-0 shadow p-0">
-        <div class="card-header d-flex justify-content-between">
-            <a href="" class="text-info d-block">{{post.authorPost}}</a>
-            <h5 class="text-center fw-bold card-titre">
-                {{ post.titlePost }}
-            </h5>
-        </div>
-        <div class="card-body">
-            <a href="{% url 'forum_app:read' post.pk %}" class="card-link text-black text-decoration-none"><p class="card-text">{{post.contentPost|truncatewords:15}}</p></a
-            >
-        </div>
+{% extends 'base.html' %} {% block corps%} {% for post in posts %}
+<div class="card border-0 shadow p-0 mt-3">
+    <div class="card-header d-flex justify-content-between">
+        <a href="" class="text-info d-block">{{post.authorPost}}</a>
+        <h5 class="text-center fw-bold card-titre">{{ post.titlePost }}</h5>
+    </div>
+    <div class="card-body">
+        <a
+            href="{% url 'forum_app:read' post.pk %}"
+            class="card-link text-black text-decoration-none"
+            ><p class="card-text">{{post.contentPost|truncatewords:15}}</p></a
+        >
     </div>
 </div>
-    {% endfor %}
-</div>
-{%endblock%}
+{% endfor %} {%endblock%}

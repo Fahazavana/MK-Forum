@@ -1,21 +1,15 @@
 {% extends 'base.html' %} {% block corps%}
 
-    <div class="container-lg">
-      <div class="row justify-content-center">
-  
-        
-
-        <div class="card col-8 border-0 shadow p-0">
+        <div class="card border-0 shadow p-0">
             <div class="card-header d-flex justify-content-between">
                 <a href="" class="text-info d-block">{{posts.authorPost}}</a>
                 <h5 class="text-center fw-bold card-titre">
-                    {{ post.titlePost }}
+                    {{ posts.titlePost }}
                 </h5>
             </div>
             <div class="card-body">
               {{posts.contentPost}}
             </div>
-
           <div class="card-footer d-flex justify-content-between">
             <div>
               <a href="" class="btn card-link-read-post text-info text-decoration-none d-inline text-center">React</a>
@@ -23,15 +17,18 @@
               <a href="" class="btn card-link-read-post text-info text-decoration-none d-inline text-center">React</a>
             </div>
             <div> 
+              {% if user.id == posts.id%}
               <a href="" class="btn card-link-read-post text-info text-decoration-none d-inline text-center"><i
                   class="fas fa-pen"></i></a>
               <a href="" class="btn btn-smallcard-link-read-post text-danger text-decoration-none d-inline text-center"><i
                   class="fas fa-trash"></i></a>
+              {% endif %}
             </div>
-
           </div>
         </div>
-        <div class="comment">
+
+
+        <div class="comment mt-5">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, debitis!
           <div class="card-footer d-flex justify-content-between">
               <div>
@@ -48,11 +45,11 @@
           </div>
         </div>
 
-        <div class="m-auto form-group has-warning has-feddback">
+        <div class="mt-5 m-auto form-group has-warning has-feddback">
           <form action="." method="post">
             <textarea id="" class="form-control mb-3" style="height: 100px;"></textarea>
             <input type="submit" value="Commenter" class="form-control btn btn-primary">
           </form>
         </div>
-      </div>
+
 {% endblock %}
