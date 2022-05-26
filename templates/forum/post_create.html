@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static%}
+{% block title %}Nouvelle Publication{% endblock%}
+{% block styles%}
+<link href="{% static 'css/post_cu.css'%}" rel="stylesheet" />
+{%endblock%}
+{% block corps%}
+<div class="border-0 py-5 shadow">
+    <div class="text-center fw-bold text-muted mb-2">Nouvelle publication</div>
+    <div style="width: 80%" class="m-auto form-group has-warning has-feddback">
+        <form method="post">
+          {% csrf_token%}
+          {{ form.titlePost }}
+          {{ form.contentPost}}
+            <input
+                type="submit"
+                value="Crée"
+                class="form-control btn btn-primary"
+            />
+
+            
+        </form>
+    </div>
+</div>
+{% endblock %}

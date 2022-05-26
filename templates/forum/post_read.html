@@ -1,0 +1,97 @@
+{% extends 'base.html' %} {% load static%}
+{% block title %}{{ post.titlePost}}-{{post.authorPost}}{% endblock%}
+{% block corps%}
+
+<div class="card border-0 shadow p-0">
+    <div class="card-header d-flex justify-content-between">
+        <a href="" class="text-info d-block">{{post.authorPost}}</a>
+        <h5 class="text-center fw-bold card-titre">{{ post.titlePost }}</h5>
+    </div>
+    <div class="card-body">{{post.contentPost}}</div>
+    <div class="card-footer d-flex justify-content-between">
+        <div>
+            <a
+                href=""
+                class="btn card-link-read-post text-info text-decoration-none d-inline text-center"
+                >React</a
+            >
+            <a
+                href=""
+                class="btn card-link-read-post text-info text-decoration-none d-inline text-center"
+                >React</a
+            >
+            <a
+                href=""
+                class="btn card-link-read-post text-info text-decoration-none d-inline text-center"
+                >React</a
+            >
+        </div>
+        <div>
+            {% if user.id == post.authorPost.id %}
+            <a
+                href="{% url 'forum_app:update' post.pk %}"
+                class="btn card-link-read-post text-info text-decoration-none d-inline text-center"
+                ><i class="fas fa-pen"></i
+            ></a>
+            <a href="{% url 'forum_app:delete' post.pk %}"
+                class="btn btn-smallcard-link-read-post text-danger text-decoration-none d-inline text-center"
+            >
+                <i class="fas fa-trash"></i>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="comment mt-5">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, debitis!
+    <div class="card-footer d-flex justify-content-between">
+        <div>
+            <a
+                href=""
+                class="btn card-link-read-post text-info text-decoration-none d-inline text-center"
+                >React</a
+            >
+            <a
+                href=""
+                class="btn card-link-read-post text-info text-decoration-none d-inline text-center"
+                >React</a
+            >
+            <a
+                href=""
+                class="btn card-link-read-post text-info text-decoration-none d-inline text-center"
+                >React</a
+            >
+        </div>
+        <div>
+            <a
+                href=""
+                class="btn card-link-read-post text-info text-decoration-none d-inline text-center"
+                ><i class="fas fa-pen"></i
+            ></a>
+            <button
+                class="btn card-link-read-post text-danger text-decoration-none d-inline text-center"
+            >
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="mt-5 m-auto form-group has-warning has-feddback">
+    <form action="." method="post">
+        <textarea
+            id=""
+            class="form-control mb-3"
+            style="height: 100px"
+        ></textarea>
+        <input
+            type="submit"
+            value="Commenter"
+            class="form-control btn btn-primary"
+        />
+    </form>
+</div>
+
+
+{% endblock %}
