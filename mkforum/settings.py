@@ -140,4 +140,7 @@ STATICFILES_DIRS = [BASE_DIR/'static/']
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+LOGIN_REDIRECT_URL = 'forum_app:index'
+LOGIN_URL = 'users_app:login'
+
 INTERNAL_IPS=["127.0.0.1",]

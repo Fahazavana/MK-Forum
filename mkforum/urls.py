@@ -26,11 +26,10 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',indexView.as_view(),name="index"),
-    path('forum/',include("forum.urls")),]
+    path('forum/', include("forum.urls")),
+    path('account/', include("users.urls")), ]
 
 
-
-if settings.DEBUG : 
-	print("Here")
+if settings.DEBUG:
 	import debug_toolbar
 	urlpatterns=[path("__debug__/",include("debug_toolbar.urls")),]+urlpatterns
