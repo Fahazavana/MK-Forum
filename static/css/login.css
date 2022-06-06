@@ -1,19 +1,26 @@
-.login-header{
-	width: 80%;
-   padding: 0.5em 1em;
-   border-radius: 0.2em;
-  }
-  .my_login{
-	border-top: none;
-	border-left: none ;
-	border-right: none;
-	border-radius: 0;
-  }
-  .my_login:focus{
-	border-top: none;
-	border-left: none ;
-	border-right: none;
-	border-bottom: 2px solid #0d6efd ;
-	border-radius: 0;
-	box-shadow: none;
-  }
+.login-header {
+    width: 80%;
+    padding: 0.5em 1em;
+    border-radius: 0.2em;
+}
+.my_login {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+    border-bottom: 2px;
+}
+.my_login:focus {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid #0d6efd;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.user-form {
+    min-width: 350px;
+    width: 75%;
+    max-width: 750px;
+}

@@ -1,0 +1,34 @@
+{% extends "base.html" %} {% load static%}
+{% block title%}Inscription{%endblock%} 
+{% block styles%}
+<link href="{% static 'css/login.css'%}" rel="stylesheet" />
+{%endblock%} {% block main %}
+<main class="container d-flex justify-content-center align-items-center">
+    <div class="border py-5 shadow user-form col-md-7">
+        <div
+            class="login-header text-center m-auto fw-bold bg-dark text-white mb-3"
+        >
+            Inscription
+        </div>
+        <div
+            style="width: 80%"
+            class="m-auto form-group has-warning has-feddback"
+        >
+            <form method="post">
+                {% csrf_token %} {{form.username}} {{ form.password1}} 
+                {{form.password2}}
+                <p class="text-danger text-center mb-3 p-2">
+                    {{form.errors.password2}}
+                </p>
+                <div class="text-muted">{{ form.password1.help_text}}</div>
+                <button class="btn btn-primary form-control">
+                    Inscription
+                </button>
+            </form>
+        </div>
+        <div class="text-center p-2 mt-1">
+            <a href="{% url 'user_app:login' %}"> Se connecter</a>
+        </div>
+    </div>
+</main>
+{% endblock main%}
