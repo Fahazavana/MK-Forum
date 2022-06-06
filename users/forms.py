@@ -1,6 +1,6 @@
 from django import forms
 from django.forms.utils import ErrorList
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, SetPasswordForm, PasswordResetForm
 
 
 class TextErrorList(ErrorList):
@@ -36,3 +36,21 @@ class UserRegistrationForm(UserCreationForm):
             {'class': 'form-control mb-1 my_login', "placeholder": "Mot de passe"})
         self.fields['password2'].widget.attrs.update(
             {'class': 'form-control mb-1 my_login', "placeholder": "Re-saisir votre mots de passe"})
+
+
+class FormResetPassword(PasswordResetForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.error_class = TextErrorList
+        self.fields['email'].widget.attrs.update(
+            {'class': 'form-control mb-3 my_login', "placeholder": "Entrez votre e-mail"})
+
+
+class FormUpdatePassword(SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.error_class = TextErrorList
+        self.fields['new_password1'].widget.attrs.update(
+            {'class': 'form-control mb-3 my_login', "placeholder": "Mot de passe"})
+        self.fields['new_password2'].widget.attrs.update(
+            {'class': 'form-control mb-2 my_login', "placeholder": "Re-saisir votre mots de passe"})
