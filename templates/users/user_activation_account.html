@@ -1,0 +1,9 @@
+{% autoescape off %}
+Bonjour {{ user.username }},
+Clicker sur le lien ci-dessous pour activer votre compte.
+
+http://{{ domain }}{% url 'user_app:activate' uidb64=uid token=token %}
+
+L'équipe Mk-Forum.
+{% endautoescape %}
+

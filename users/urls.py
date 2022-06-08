@@ -18,5 +18,7 @@ urlpatterns = [
          name='password_reset_confirm'),
     path("reset-password/complete/", PasswordResetDoneView.as_view(template_name='users/user_reset_password_complete.html'),
          name='password_reset_complete'),
+    path("activate/<str:uidb64>/<str:token>/", views.activate,
+         name='activate'),
 
 ]

@@ -15,11 +15,26 @@
             class="m-auto form-group has-warning has-feddback"
         >
             <form method="post">
-                {% csrf_token %} {{form.username}} {{ form.password1}} 
+                {% csrf_token %}
+                {% if form.username.error %}
+                <p class="text-danger text-center mb-2 p-2">
+                    {{ form.errors.username }}
+                    </p>
+                {% endif %}
+                    {{form.username}}
+                    {% if form.email.error %}
+                    <p class="text-danger text-center mb-2 p-2">
+                        {{ form.errors.email}}
+                    </p>
+                    {% endif %}
+                    {{form.email}} 
+                    {{ form.password1}}
+                    {% if form.errors %} 
+                    <p class="text-danger text-center mb-2 p-2">
+                        {{form.errors.password2}}
+                    </p>
+                    {% endif %}
                 {{form.password2}}
-                <p class="text-danger text-center mb-3 p-2">
-                    {{form.errors.password2}}
-                </p>
                 <div class="text-muted">{{ form.password1.help_text}}</div>
                 <button class="btn btn-primary form-control">
                     Inscription

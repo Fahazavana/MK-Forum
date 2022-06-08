@@ -145,6 +145,8 @@ LOGIN_URL = 'users_app:login'
 
 INTERNAL_IPS=["127.0.0.1",]
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+
 # Email settings gmail
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

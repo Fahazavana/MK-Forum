@@ -1,6 +1,9 @@
 from django import forms
 from django.forms.utils import ErrorList
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, SetPasswordForm, PasswordResetForm
+from django.core.exceptions import ValidationError
+
 
 
 class TextErrorList(ErrorList):
@@ -31,11 +34,31 @@ class UserRegistrationForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         self.error_class = TextErrorList
         self.fields['username'].widget.attrs.update(
-            {'class': 'form-control mb-2 my_login', "placeholder": "Nom d'utilisateur"})
+            {'class': 'form-control mb-3 my_login', "placeholder": "Nom d'utilisateur"})
+        self.fields['email'].widget.attrs.update(
+            {'class': 'form-control mb-3 my_login', "placeholder": "Votre@Email.com"})
         self.fields['password1'].widget.attrs.update(
-            {'class': 'form-control mb-1 my_login', "placeholder": "Mot de passe"})
+            {'class': 'form-control mb-3 my_login', "placeholder": "Mot de passe"})
         self.fields['password2'].widget.attrs.update(
-            {'class': 'form-control mb-1 my_login', "placeholder": "Re-saisir votre mots de passe"})
+            {'class': 'form-control mb-3 my_login', "placeholder": "Re-saisir votre mots de passe"})
+
+    class Meta:
+        model = User
+        fields = ("username", "email", "password1", "password2")
+
+    def clean(self):
+        email = self.cleaned_data.get('email')
+        print(email)
+        if User.objects.filter(email=email).exists():
+            print("here")
+            self.add_error(
+                'email', "Cette addresse est déja utilisé par un autre utilisateur")
+            raise ValidationError(
+                f"l'email : {email} existe déja. veuiller spécifier un autre.")
+        return self.cleaned_data
+
+
+
 
 
 class FormResetPassword(PasswordResetForm):

@@ -2,8 +2,14 @@
  {% block styles %}
 <link href="{% static 'css/login.css'%}" rel="stylesheet" /> {% endblock %} 
 {% block main %}
-<main class="container d-flex justify-content-center align-items-center">
-        <div class="border py-5 shadow col-md-5">
+<main class="container d-flex flex-column justify-content-center align-items-center">
+        <div class="border pb-5 shadow col-md-5">
+    {% if messages %}
+    {% for msg in messages %}
+    <div class="alert alert-{{msg.tags}} border-{{msg.tags}} mb-4 text-center border-2">{{ msg}}</div>
+    {% endfor %}
+    {% endif %}
+    
             <div
                 class="login-header text-center mx-auto fw-bold bg-dark text-white mb-3"
             >
