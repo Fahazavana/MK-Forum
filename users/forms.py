@@ -47,10 +47,9 @@ class UserRegistrationForm(UserCreationForm):
         fields = ("username", "email", "password1", "password2")
 
     def clean(self):
+        super().clean()
         email = self.cleaned_data.get('email')
-        print(email)
         if User.objects.filter(email=email).exists():
-            print("here")
             self.add_error(
                 'email', "Cette addresse est déja utilisé par un autre utilisateur")
             raise ValidationError(

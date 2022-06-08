@@ -1,7 +1,7 @@
-{% extends 'base.html' %} {% block corps%} {% for post in posts %}
+{% extends 'base.html' %} {% block corps%} {% for post in Post %}
 <div class="card border-0 shadow p-0 mt-3">
     <div class="card-header d-flex justify-content-between">
-        <a href="" class="text-info d-block">{{post.authorPost}}</a>
+        <a href="{% url 'user_app:profile' post.authorPost.pk %}" class="text-info d-block">{% if post.authorPost.first_name != "" %}{{post.authorPost.first_name}}{% else %}{{post.authorPost}}{% endif %} </a>
         <h5 class="text-center fw-bold card-titre">{{ post.titlePost }}</h5>
     </div>
     <div class="card-body">

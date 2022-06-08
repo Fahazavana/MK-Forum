@@ -16,20 +16,20 @@
         >
             <form method="post">
                 {% csrf_token %}
-                {% if form.username.error %}
+                {% if form.username.errors %}
                 <p class="text-danger text-center mb-2 p-2">
                     {{ form.errors.username }}
                     </p>
                 {% endif %}
                     {{form.username}}
-                    {% if form.email.error %}
+                    {% if form.email.errors %}
                     <p class="text-danger text-center mb-2 p-2">
                         {{ form.errors.email}}
                     </p>
                     {% endif %}
                     {{form.email}} 
                     {{ form.password1}}
-                    {% if form.errors %} 
+                    {% if form.password2.errors %} 
                     <p class="text-danger text-center mb-2 p-2">
                         {{form.errors.password2}}
                     </p>

@@ -1,16 +1,17 @@
-from django.contrib import messages
-from django.core.mail import EmailMessage
-from django.urls.base import reverse_lazy
-from django.contrib.auth.models import User
+from .forms import UserLoginForm, UserRegistrationForm, FormResetPassword
+from .models import Profile
 from .tokens import account_activation_token
+from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth.views import LoginView, PasswordResetView
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMessage
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
+from django.urls.base import reverse_lazy
 from django.utils.encoding import force_bytes, force_str
-from django.contrib.sites.shortcuts import get_current_site
-from django.contrib.auth.views import LoginView, PasswordResetView
-from .forms import UserLoginForm, UserRegistrationForm, FormResetPassword
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-
+from django.views.generic import DetailView
 # Create your views here.
 
 
@@ -95,3 +96,13 @@ class ResetPasswordView(PasswordResetView):
     form_class = FormResetPassword
     success_url = reverse_lazy("user_app:password_reset_done")
 
+
+class ProfileView(DetailView):
+    template_name = "users/user_profile.html"
+    model = Profile
+    context_object_name = 'user_profile'
+
+    # def get_context_data(self, **kwargs):
+    # context = super().get_context_data(**kwargs)
+    # context[""] =
+    # return context

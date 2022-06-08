@@ -4,6 +4,7 @@ html {
 
 body {
     padding-top: 4.5rem;
+    background-image: url("../img/bg.png");
 }
 
 main {

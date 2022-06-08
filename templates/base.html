@@ -16,8 +16,7 @@
 
         <!-- Custom Css -->
         <link href="{% static 'css/styles.css'%}" rel="stylesheet" />
-        {% block styles %}
-        {%endblock%}
+        {% block styles %} {%endblock%}
     </head>
 
     <body>
@@ -30,12 +29,15 @@
                     </span>
                 </a>
                 {% if user.is_authenticated %}
-                <a href="" class="nav-link d-none d-md-block">
+                <a href="{% url 'user_app:profile' user.pk %}" class="nav-link d-none d-md-block">
                     <span class="nav-item text-white"
                         ><i class="fas fa-user"></i> Profile
                     </span>
                 </a>
-                <a href="{% url 'forum_app:create' %}" class="nav-link d-none d-md-block">
+                <a
+                    href="{% url 'forum_app:create' %}"
+                    class="nav-link d-none d-md-block"
+                >
                     <span class="nav-item text-white"
                         ><i class="fas fa-plus"></i>Publier</span
                     >
@@ -66,7 +68,9 @@
                             >
                         </li>
                         <li class="nav-item d-md-none">
-                            <a href="{% url 'forum_app:create' %}" class="nav-link text-white"
+                            <a
+                                href="{% url 'forum_app:create' %}"
+                                class="nav-link text-white"
                                 ><i class="fas fa-plus"></i> Publier</a
                             >
                         </li>
@@ -76,19 +80,25 @@
                             >
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'user_app:logout' %}" class="nav-link text-white"
+                            <a
+                                href="{% url 'user_app:logout' %}"
+                                class="nav-link text-white"
                                 ><i class="fas fa-sign-out-alt"></i>
                                 Déconnexion</a
                             >
                         </li>
                         {% else %}
                         <li class="nav-item">
-                            <a href="{% url 'user_app:create' %}" class="nav-link text-white"
+                            <a
+                                href="{% url 'user_app:create' %}"
+                                class="nav-link text-white"
                                 ><i class="fas fa-plus"></i> Crée un compte</a
                             >
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'user_app:login' %}" class="nav-link text-white"
+                            <a
+                                href="{% url 'user_app:login' %}"
+                                class="nav-link text-white"
                                 ><i class="fas fa-user"></i> Se connecter</a
                             >
                         </li>
@@ -103,9 +113,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8">{% block corps %} {% endblock%}</div>
-                    <div class="col-md-3">
-                      {% block aside %}{% endblock%}
-                    </div>
+                    <div class="col-md-3">{% block aside %}{% endblock%}</div>
                 </div>
             </div>
         </main>
@@ -137,7 +145,6 @@
         <script src="{% static 'bs5/js/bootstrap.bundle.min.js' %}"></script>
         <script src="{% static 'fontawesome/js/all.min.js' %}"></script>
 
-{% block script %}
-{% endblock %}
+        {% block script %} {% endblock %}
     </body>
 </html>

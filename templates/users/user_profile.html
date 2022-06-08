@@ -1,0 +1,30 @@
+{% extends 'base.html' %} {% block title %} {{ user_profile.user.first_name}} {{user_profile.user.last_name}} {% endblock title %} {% block corps %}
+
+<div class="row">
+    <div class="col d-flex justify-content-center align-items-center">
+        <div
+            class="rounded rounded-circle d-flex justify-content-center align-items-center"
+            style="width: 150px; height: 150px; background-color: green"
+        >
+            <p class="text-white m-0 fw-bold" style="font-size: 50px">
+                {{user_profile.user.username.0|upper }}
+            </p>
+        </div>
+    </div>
+    <ul class="col list-group">
+        {% if user_profile.user == user %}
+        <li class="list-group-item">
+            Nom d' utilisateur : {{user_profile.user.username}}
+        </li>
+        {% endif %}
+        <li class="list-group-item">Nom : {{ user_profile.user.first_name }}</li>
+        <li class="list-group-item">Prenom : {{ user_profile.user.last_name}}</li>
+        <li class="list-group-item">E-mail : {{user_profile.user.email}}</li>
+        <li class="list-group-item">
+            Date de naissance : {{ user_profile.dateNaissance}}
+		</li>
+        <li class="list-group-item">Adresse : {{ user_profile.adresse}}</li>
+        <li class="list-group-item">Niveaux : {{user_profile.niveaux}}</li>
+    </ul>
+</div>
+{% endblock corps %}

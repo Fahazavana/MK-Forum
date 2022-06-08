@@ -15,9 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
-
-from forum.views import indexView
+from forum.views import IndexView
 from django.conf import settings
 
 
@@ -25,7 +23,7 @@ from django.conf import settings
 # séparé les filchiers urls de chaque app, et l'inclure ici.
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',indexView.as_view(),name="index"),
+    path('', IndexView.as_view(), name="index"),
     path('forum/', include("forum.urls")),
     path('account/', include("users.urls")), ]
 

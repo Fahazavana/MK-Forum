@@ -1,9 +1,9 @@
 from django.forms import ModelForm
 from django.forms import Textarea, TextInput
-from .models import Posts
+from .models import Post
 
 
-class postForm(ModelForm):
+class PostForm(ModelForm):
     # overwride default
     def __init__(self, *args, **kwargs):
         super(postForm, self).__init__(*args, **kwargs)
@@ -14,5 +14,5 @@ class postForm(ModelForm):
             'style': "height: 100px"}
 
     class Meta:
-        model = Posts
+        model = Post
         fields = ['titlePost', 'contentPost']

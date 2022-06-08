@@ -1,13 +1,13 @@
 {% extends 'base.html' %} {% load static%}
-{% block title %}{{ post.titlePost}}-{{post.authorPost}}{% endblock%}
+{% block title %}{{ Post.titlePost}}-{{Post.authorPost}}{% endblock%}
 {% block corps%}
 
 <div class="card border-0 shadow p-0">
     <div class="card-header d-flex justify-content-between">
-        <a href="" class="text-info d-block">{{post.authorPost}}</a>
-        <h5 class="text-center fw-bold card-titre">{{ post.titlePost }}</h5>
+        <a href="" class="text-info d-block">{% if Post.authorPost.first_name != "" %}{{Post.authorPost.first_name}}{{Post.authorPost.last_name | truncatewords:3}}{% else %}{{Post.authorPost}}{% endif %} </a>
+        <h5 class="text-center fw-bold card-titre">{{ Post.titlePost }}</h5>
     </div>
-    <div class="card-body">{{post.contentPost}}</div>
+    <div class="card-body">{{Post.contentPost}}</div>
     <div class="card-footer d-flex justify-content-between">
         <div>
             <a
@@ -27,13 +27,13 @@
             >
         </div>
         <div>
-            {% if user.id == post.authorPost.id %}
+            {% if user.id == Post.authorPost.id %}
             <a
-                href="{% url 'forum_app:update' post.pk %}"
+                href="{% url 'forum_app:update' Post.pk %}"
                 class="btn card-link-read-post text-info text-decoration-none d-inline text-center"
                 ><i class="fas fa-pen"></i
             ></a>
-            <a href="{% url 'forum_app:delete' post.pk %}"
+            <a href="{% url 'forum_app:delete' Post.pk %}"
                 class="btn btn-smallcard-link-read-post text-danger text-decoration-none d-inline text-center"
             >
                 <i class="fas fa-trash"></i>
