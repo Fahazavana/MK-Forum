@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,9 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-av)_#ez&($jv@+u+=^4kp+=5w($sy22r+n_hs#(qgzyu0&*5nk"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG')
 
 ALLOWED_HOSTS = []
+if not DEBUG:
+    ALLOWED_HOSTS += ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -58,7 +61,7 @@ ROOT_URLCONF = "mkforum.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        'DIRS': [ BASE_DIR/'templates'],
+        'DIRS': [BASE_DIR/'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -76,18 +79,14 @@ WSGI_APPLICATION = "mkforum.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "mkf_db",
-        "USER": "root",
-        "PASSWORD": "root",
-        "HOST": "localhost",
-        "PORT": "3306",
-        # sqlite
-        #'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': BASE_DIR / 'db.sqlite3',
+        "ENGINE": os.environ.get('DB_ENGINE'),
+        "NAME": os.environ.get('DB_NAME'),
+        "USER": os.environ.get('DB_USER'),
+        "PASSWORD": os.environ.get('DB_PASSWORD'),
+        "HOST": os.environ.get('DB_HOST'),
+        "PORT": os.environ.get('DB_PORT'),
     }
 }
 
@@ -132,7 +131,7 @@ STATIC_URL = "static/"
 
 
 # Dossier pour les fichier Statique
-STATICFILES_DIRS = [BASE_DIR/'static/'] 
+STATICFILES_DIRS = [BASE_DIR/'static/']
 
 
 # Default primary key field type
@@ -143,14 +142,14 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_REDIRECT_URL = 'forum_app:index'
 LOGIN_URL = 'users_app:login'
 
-INTERNAL_IPS=["127.0.0.1",]
+INTERNAL_IPS = ["127.0.0.1", ]
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 # Email settings gmail
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "lucienainarj@gmail.com"
-EMAIL_HOST_PASSWORD = 'btospqocksfnolml'
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND')
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_PORT = os.environ.get('EMAIL_HOST')
+EMAIL_USE_TLS = os.environ.get('EMAIL_PORT')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
