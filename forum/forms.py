@@ -6,7 +6,7 @@ from .models import Post
 class PostForm(ModelForm):
     # overwride default
     def __init__(self, *args, **kwargs):
-        super(postForm, self).__init__(*args, **kwargs)
+        super(PostForm, self).__init__(*args, **kwargs)
         self.fields['titlePost'].widget.attrs = {
             'class': 'form-control mb-3 my_post_title text-center', 'placeholder': "Titre"}
         self.fields['contentPost'].widget.attrs = {
@@ -16,3 +16,4 @@ class PostForm(ModelForm):
     class Meta:
         model = Post
         fields = ['titlePost', 'contentPost']
+

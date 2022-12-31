@@ -28,3 +28,13 @@ class PostComment(models.Model):
 
     def __str__(self):
         return "{}-{} {}".format(self.id, self.commentedByUser, self.commentPost)
+
+class Reaction(models.Model):
+    up = models.IntegerField(default=0)
+    down = models.IntegerField(default=0)
+    reactedPost = models.ForeignKey(Post, on_delete=models.RESTRICT)
+    reactionAuthor = models.ForeignKey(User, on_delete=models.CASCADE)
+    reactionDate = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "Reaction de {} sur {}".format(self.voteAuthor, self.votedPost)

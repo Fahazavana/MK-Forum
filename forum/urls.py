@@ -11,4 +11,8 @@ urlpatterns = [
          name='update'),  # UPDATE
     path('read/<int:pk>/delete', views.DeletePost.as_view(),
          name='delete'),  # DELETE
+    path('read/<int:pk>/react/<str:reactionType>', views.reactOnPost,
+         name='reaction'),
+     path('read/<int:pk>/comment', views.commentPost,
+         name='commenter'),
 ]
