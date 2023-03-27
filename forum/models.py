@@ -10,6 +10,7 @@ from django.urls import reverse
 class Post(models.Model):
     titlePost = models.CharField(max_length=50, blank=False)
     contentPost = models.TextField(blank=False)
+    contentPostHTML = models.TextField(blank=True)
     authorPost = models.ForeignKey(User, on_delete=models.CASCADE)
     datePost = models.DateTimeField(auto_now=True)
     lastModificationPost = models.DateTimeField(auto_now=True)
@@ -23,6 +24,7 @@ class Post(models.Model):
 
 class PostComment(models.Model):
     contentComment = models.TextField(max_length=1000, blank=False)
+    contentCommentHTML = models.TextField(max_length=1000, blank=True)
     commentPost = models.ForeignKey(Post, on_delete=models.CASCADE)
     commentAuthor = models.ForeignKey(User, on_delete=models.CASCADE)
 

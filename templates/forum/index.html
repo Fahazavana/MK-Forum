@@ -8,7 +8,7 @@
         <a
             href="{% url 'forum_app:read' post.pk %}"
             class="card-link text-black text-decoration-none"
-            ><p class="card-text">{{post.contentPost|truncatewords:15}}</p></a
+            ><p class="card-text">{{post.contentPostHTML|truncatewords:15|safe}}</p></a
         >
     </div>
 </div>

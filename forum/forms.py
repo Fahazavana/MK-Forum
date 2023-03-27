@@ -11,9 +11,9 @@ class PostForm(ModelForm):
             'class': 'form-control mb-3 my_post_title text-center', 'placeholder': "Titre"}
         self.fields['contentPost'].widget.attrs = {
             'class': "form-control mb-3",
-            'style': "height: 100px"}
+            'style': "height: 100px",
+            "data-provide": "markdown", "wrap": "hard"}
 
     class Meta:
         model = Post
         fields = ['titlePost', 'contentPost']
-
