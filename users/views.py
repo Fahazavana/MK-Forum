@@ -1,9 +1,12 @@
-from .forms import UserLoginForm, UserRegistrationForm, FormResetPassword
+from .forms import UserLoginForm, UserRegistrationForm, FormResetPassword, UpdateUserForm, UpdateUserProfileForm, FormChangePassword, UpdateUserProfilePictureForm
 from .models import Profile
 from .tokens import account_activation_token
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.contrib.auth.views import LoginView, PasswordResetView
+from django.contrib.auth import logout
+from django.contrib.auth.views import LoginView, PasswordResetView, PasswordChangeView
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.shortcuts import render, redirect
@@ -11,7 +14,8 @@ from django.template.loader import render_to_string
 from django.urls.base import reverse_lazy
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django.views.generic import DetailView
+from django.views.generic import DetailView, DeleteView, UpdateView
+
 # Create your views here.
 
 
@@ -31,7 +35,7 @@ def registerUser(request):
     if request.user.is_authenticated:
         """
             Redirect the user to the home page
-            if user has already an account 
+            if user loged in
         """
         return redirect("forum_app:index")
     if request.method == 'POST':
@@ -65,6 +69,8 @@ def registerUser(request):
         form = UserRegistrationForm()
     return render(request, 'users/user_register.html', {'form': form})
 
+# Acount activation
+
 
 def activate(request, uidb64, token):
     """
@@ -73,7 +79,7 @@ def activate(request, uidb64, token):
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
-    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
 
     print("Receivd token", token)
@@ -97,12 +103,75 @@ class ResetPasswordView(PasswordResetView):
     success_url = reverse_lazy("user_app:password_reset_done")
 
 
-class ProfileView(DetailView):
+class NewPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
+    """
+        Change password
+    """
+    template_name = 'users/user_password_change.html'
+    form_class = FormChangePassword
+
+    def form_valid(self, form):
+        if not form.is_valid():
+            print('form is not valid')
+            raise ValueError('Form is not valid')
+        response = super().form_valid(form)
+        messages.success(
+            self.request, 'Votre mot de passe a été changé avec succès.')
+        return response
+
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('user_app:profile', kwargs={'pk': self.kwargs['pk']})
+
+
+class ProfileView(LoginRequiredMixin, DetailView):
     template_name = "users/user_profile.html"
     model = Profile
     context_object_name = 'user_profile'
 
-    # def get_context_data(self, **kwargs):
-    # context = super().get_context_data(**kwargs)
-    # context[""] =
-    # return context
+
+
+class UserAccountDeleteView(LoginRequiredMixin, DeleteView):
+    model = User  # Replace with your user model
+    template_name = "users/user_delete.html"
+    success_url = reverse_lazy("forum_app:index")
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(request, "Compte avec succes")
+        logout(request)
+
+        return super().delete(request, *args, **kwargs)
+
+
+@login_required
+def updateUserProfile(request, pk):
+    if request.method == 'POST':
+        userForm = UpdateUserForm(request.POST, instance=request.user)
+        profileForm = UpdateUserProfileForm(
+            request.POST, instance=request.user.profile)
+
+        if userForm.is_valid() and profileForm.is_valid():
+            user_form = userForm.save()
+            profile = profileForm.save(False)
+            profile.user = user_form
+            profile.save()
+            messages.success(request, "Information mis a jour avec succes")
+            return redirect('user_app:profile', pk)
+    else:
+        username = User.objects.get(pk=pk).username
+        userForm = UpdateUserForm(instance=request.user)
+        profileForm = UpdateUserProfileForm(instance=request.user.profile)
+        context = {'userForm': userForm, 'profileForm': profileForm,
+                   'username': username}
+        return render(request, 'users/user_edit.html', context)
+
+
+class UserChangeProfilePicture(LoginRequiredMixin, UpdateView):
+    """
+        Update Profile Picture
+    """
+    template_name = "users/user_picture.html"
+    model = Profile
+    form_class = UpdateUserProfilePictureForm

@@ -87,7 +87,7 @@
 
 {% if user.is_authenticated %}
 <div class="mt-5 m-auto form-group has-warning has-feddback">
-    <form action="{% url "forum_app:commenter" Post.pk %}" method="post">
+    <form action="{% url 'forum_app:commenter' Post.pk %}" method="post">
         {% csrf_token %}
         <textarea
         id=""

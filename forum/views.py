@@ -69,7 +69,7 @@ class UpdatePost(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class DeletePost(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     """
         Delete Post View
-    """
+    """ 
     model = Post
     context_object_name = "Post"
     template_name = "forum/post_delete.html"
@@ -82,13 +82,14 @@ class DeletePost(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         else:
             return False
 
-# Adding reaction
 
 
+# Reaction handler
 @login_required
 def reactOnPost(request, pk, reactionType):
     if request.method == "GET":
         post = Post.objects.get(pk=pk)
+        # Manage existing reaction
         try:
             reaction = post.reaction_set.get(
                 reactedPost=pk, reactionAuthor=request.user)
@@ -108,7 +109,7 @@ def reactOnPost(request, pk, reactionType):
                     reaction.down = 0
             reaction.save()
 
-        #New Reaction
+        # Handle new reaction Reaction
         except Reaction.DoesNotExist:
             if reactionType == "up":
                 up, down = 1, 0
@@ -119,7 +120,7 @@ def reactOnPost(request, pk, reactionType):
             reaction.save()
     return redirect("forum_app:read", pk)
 
-
+# Comment on a post
 @login_required
 def commentPost(request, pk):
     if request.method == "POST":

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static%}
+{% block title %}Mise à jour {{ post.titlePost}}-{{post.authorPost}}{% endblock%}
+{% block styles%}
+<link href="{% static 'css/post_cu.css'%}" rel="stylesheet" />
+{%endblock%}
+{% block corps%}
+<div class="border-0 py-5 shadow">
+    <div class="text-center fw-bold text-muted mb-2">Modification</div>
+    <div style="width: 80%" class="m-auto form-group has-warning has-feddback">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token%}
+          {{ form.profile_pic }}
+            <input
+                type="submit"
+                value="Mettre à jour"
+                class="form-control btn btn-primary"
+            /> 
+        </form>
+    </div>
+</div>
+{% endblock %}

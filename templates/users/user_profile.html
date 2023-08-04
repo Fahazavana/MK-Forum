@@ -1,18 +1,35 @@
-{% extends 'base.html' %} {% block title %} {{ user_profile.user.first_name}} {{user_profile.user.last_name}} {% endblock title %} {% block corps %}
+{% extends 'base.html' %}
+{% block title %} {{ user_profile.user.first_name}} {{user_profile.user.last_name}} {%endblock title %}
+{% block corps %}
 
 <div class="row">
-    <div class="col d-flex justify-content-center align-items-center">
-        <div
-            class="rounded rounded-circle d-flex justify-content-center align-items-center"
-            style="width: 150px; height: 150px; background-color: green"
-        >
+    {% if messages %} {% for msg in messages %}
+    <div class="alert alert-{{msg.tags}} border-{{msg.tags}} mt-5 mb-4 text-center border-2">
+        {{ msg}}
+    </div>
+    {% endfor %} {% endif %}
+    <div class="col">
+        {% if user_profile.profile_pic.url is none %}
+        <div class="rounded rounded-circle d-flex justify-content-center align-items-center"
+            style="width: 150px; height: 150px; background-color: green">
             <p class="text-white m-0 fw-bold" style="font-size: 50px">
                 {{user_profile.user.username.0|upper }}
             </p>
         </div>
+        {% else %}
+        <div class="d-flex justify-content-center align-items-center" style="width: 150px; height: 150px">
+            <img class="w-100 img-fluid" src="{{user_profile.profile_pic.url}}" alt="{{user.username}} image">
+        </div>
+        {% endif %}
+        {% if user_profile.user == user %}
+        <a class="btn btn-primary w-100" href="{%url 'user_app:profile_pic' user.pk %}">Changer ma photo de profile <i class="fas fa-pen"></i></a>
+        {% endif %}
+
     </div>
     <ul class="col list-group">
         {% if user_profile.user == user %}
+        <li class="list-group-item"><a class="btn btn-primary w-100" href="{% url 'user_app:edit' user.pk %}"> Modifier
+                mon profile <i class="fas fa-pen"></i></a></li>
         <li class="list-group-item">
             Nom d' utilisateur : {{user_profile.user.username}}
         </li>
@@ -22,9 +39,18 @@
         <li class="list-group-item">E-mail : {{user_profile.user.email}}</li>
         <li class="list-group-item">
             Date de naissance : {{ user_profile.dateNaissance}}
-		</li>
+        </li>
         <li class="list-group-item">Adresse : {{ user_profile.adresse}}</li>
         <li class="list-group-item">Niveaux : {{user_profile.niveaux}}</li>
+        {% if user_profile.user == user %}
+        <li class="list-group-item"><a class="btn btn-primary w-100" href="{% url 'user_app:changepassword' user.pk%}">
+                Modifier
+                mon mots de passe <i class="fas fa-pen"></i></a></li>
+        <li class="list-group-item"><a href="{% url 'user_app:delete' user.pk %}" class="btn btn-danger w-100"> Suprimer
+                mon compte
+                <i class="fas fa-trash"></i>
+            </a></li>
+        {% endif %}
     </ul>
 </div>
 {% endblock corps %}

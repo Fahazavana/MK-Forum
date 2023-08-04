@@ -1,150 +1,116 @@
 {% load static%}
 <!DOCTYPE html>
 <html lanh="fr">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{% block title %}Acceuil{% endblock%}</title>
 
-        <!-- Botstrap core -->
-        <link href="{% static 'bs5/css/bootstrap.min.css'%}" rel="stylesheet" />
-        <link
-            rel="stylesheet"
-            href="{% static 'fontawesome/css/all.min.css'%}"
-        />
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Acceuil{% endblock%}</title>
 
-        <!-- Custom Css -->
-        <link href="{% static 'css/styles.css'%}" rel="stylesheet" />
-        {% block styles %} {%endblock%}
-    </head>
+    <!-- Botstrap core -->
+    <link href="{% static 'bs5/css/bootstrap.min.css'%}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css'%}" />
 
-    <body>
-        <!-- navbar-->
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-            <div class="container-xxl">
-                <a href="{% url 'forum_app:index' %}" class="navbar-brand">
-                    <span class="fw-bold"
-                        ><i class="fas fa-book-open"></i> MK
-                    </span>
-                </a>
-                {% if user.is_authenticated %}
-                <a href="{% url 'user_app:profile' user.pk %}" class="nav-link d-none d-md-block">
-                    <span class="nav-item text-white"
-                        ><i class="fas fa-user"></i> Profile
-                    </span>
-                </a>
-                <a
-                    href="{% url 'forum_app:create' %}"
-                    class="nav-link d-none d-md-block"
-                >
-                    <span class="nav-item text-white"
-                        ><i class="fas fa-plus"></i>Publier</span
-                    >
-                </a>
-                {% endif %}
-                <!-- Togle button for mobile-->
-                <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#main-nav"
-                    aria-controls="main-nav"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    <!-- Custom Css -->
+    <link href="{% static 'css/styles.css'%}" rel="stylesheet" />
+    {% block styles %} {%endblock%}
+</head>
 
-                <div
-                    class="collapse navbar-collapse justify-content-end align-center"
-                    id="main-nav"
-                >
-                    <ul class="navbar-nav">
-                        {% if user.is_authenticated %}
-                        <li class="nav-item d-md-none">
-                            <a href="" class="nav-link text-white"
-                                ><i class="fas fa-user"></i> Profile</a
-                            >
-                        </li>
-                        <li class="nav-item d-md-none">
-                            <a
-                                href="{% url 'forum_app:create' %}"
-                                class="nav-link text-white"
-                                ><i class="fas fa-plus"></i> Publier</a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link text-white"
-                                ><i class="fas fa-cog"></i> Paramètre</a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a
-                                href="{% url 'user_app:logout' %}"
-                                class="nav-link text-white"
-                                ><i class="fas fa-sign-out-alt"></i>
-                                Déconnexion</a
-                            >
-                        </li>
-                        {% else %}
-                        <li class="nav-item">
-                            <a
-                                href="{% url 'user_app:create' %}"
-                                class="nav-link text-white"
-                                ><i class="fas fa-plus"></i> Crée un compte</a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a
-                                href="{% url 'user_app:login' %}"
-                                class="nav-link text-white"
-                                ><i class="fas fa-user"></i> Se connecter</a
-                            >
-                        </li>
-                        {% endif %}
-                    </ul>
+<body>
+    <!-- navbar-->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <div class="container-xxl">
+            <a href="{% url 'forum_app:index' %}" class="navbar-brand">
+                <span class="fw-bold"><i class="fas fa-book-open"></i> MK </span>
+            </a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'user_app:profile' user.pk %}" class="nav-link d-none d-md-block">
+                <span class="nav-item text-white"><i class="fas fa-user"></i> Profile
+                </span>
+            </a>
+            <a href="{% url 'forum_app:create' %}" class="nav-link d-none d-md-block">
+                <span class="nav-item text-white"><i class="fas fa-plus"></i>Publier</span>
+            </a>
+            {% endif %}
+            <!-- Togle button for mobile-->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav"
+                aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end align-center" id="main-nav">
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item d-md-none">
+                        <a href="" class="nav-link text-white"><i class="fas fa-user"></i> Profile</a>
+                    </li>
+                    <li class="nav-item d-md-none">
+                        <a href="{% url 'forum_app:create' %}" class="nav-link text-white"><i class="fas fa-plus"></i>
+                            Publier</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link text-white"><i class="fas fa-cog"></i> Paramètre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'user_app:logout' %}" class="nav-link text-white"><i
+                                class="fas fa-sign-out-alt"></i> Déconnexion</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a href="{% url 'user_app:create' %}" class="nav-link text-white"><i class="fas fa-plus"></i>
+                            Crée un compte</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'user_app:login' %}" class="nav-link text-white"><i class="fas fa-user"></i> Se
+                            connecter</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- main image & intro -->
+    {% block main %}
+    <main>
+        <div class="container">
+            <div class="row">
+                <!-- <div class="col-md-8"> -->
+                    {% block corps %} {% endblock%}
+                <!-- </div> -->
+                <!-- <div class="col-md-3">{% block aside %}{% endblock%}</div> -->
+            </div>
+        </div>
+    </main>
+    {% endblock main%}
+    <!-- Footer -->
+    <footer class="footer mt-5 p-2 bg-dark">
+        <div class="container-lg">
+            <div class="row gap-3 justify-content-center mb-2">
+                <div class="col-lg-3 text-white text-center">
+                    <i class="fab fa-facebook"></i> Facebook
+                </div>
+                <div class="col-lg-3 text-white text-center">
+                    <i class="fab fa-instagram"></i> Instagram
+                </div>
+                <div class="col-lg-3 text-white text-center">
+                    <i class="fab fa-youtube"></i> Youtube
                 </div>
             </div>
-        </nav>
-        <!-- main image & intro -->
-        {% block main %}
-        <main>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8">{% block corps %} {% endblock%}</div>
-                    <div class="col-md-3">{% block aside %}{% endblock%}</div>
-                </div>
-            </div>
-        </main>
-        {% endblock main%}
-        <!-- Footer -->
-        <footer class="footer mt-5 p-2 bg-dark">
-            <div class="container-lg">
-                <div class="row gap-3 justify-content-center mb-2">
-                    <div class="col-lg-3 text-white text-center">
-                        <i class="fab fa-facebook"></i> Facebook
-                    </div>
-                    <div class="col-lg-3 text-white text-center">
-                        <i class="fab fa-instagram"></i> Instagram
-                    </div>
-                    <div class="col-lg-3 text-white text-center">
-                        <i class="fab fa-youtube"></i> Youtube
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 text-white">
-                        <div class="text-center">
-                            <i class="far fa-copyright"></i> Copyright 2022
-                        </div>
+            <div class="row">
+                <div class="col-lg-12 text-white">
+                    <div class="text-center">
+                        <i class="far fa-copyright"></i> Copyright 2022
                     </div>
                 </div>
             </div>
-        </footer>
-        <!-- bootstrap js -->
-        <script src="{% static 'bs5/js/bootstrap.bundle.min.js' %}"></script>
-        <script src="{% static 'fontawesome/js/all.min.js' %}"></script>
+        </div>
+    </footer>
+    <!-- bootstrap js -->
+    <script src="{% static 'bs5/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'fontawesome/js/all.min.js' %}"></script>
 
-        {% block script %} {% endblock %}
-    </body>
+    {% block script %} {% endblock %}
+</body>
+
 </html>

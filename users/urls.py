@@ -20,7 +20,14 @@ urlpatterns = [
          name='password_reset_complete'),
     path("activate/<str:uidb64>/<str:token>/", views.activate,
          name='activate'),
+    path("profile/user/<int:pk>", views.ProfileView.as_view(), name="profile"),
+    path("profile/user/<int:pk>/edit", views.updateUserProfile, name="edit"),
+    path("profile/user/<int:pk>/changepassword",
+         views.NewPasswordChangeView.as_view(), name="changepassword"),
+    path("profile/user/<int:pk>/delete",
+         views.UserAccountDeleteView.as_view(), name="delete"),
+    path("profile/user/<int:pk>/picture",
+         views.UserChangeProfilePicture.as_view(), name="profile_pic"),
 
-    path("profile/user/<int:pk>", views.ProfileView.as_view(), name="profile")
 
 ]

@@ -24,9 +24,10 @@ class Profile(models.Model):
     niveaux = models.CharField(
         blank=True, max_length=4, choices=SHCOOL_LEVEL_CHOICE)
     adresse = models.CharField(blank=True, max_length=50)
+    profile_pic = models.ImageField(null=True,blank=True,default=None)
 
     def __str__(self):
         return "{} {}".format(self.user.id, self.user.username)
 
     def get_absolute_url(self):
-        return reverse('users_app:profile', kwargs={'pk': self.pk})
+        return reverse('user_app:profile', kwargs={'pk': self.pk})

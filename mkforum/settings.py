@@ -133,6 +133,10 @@ STATIC_URL = "static/"
 # Dossier pour les fichier Statique
 STATICFILES_DIRS = [BASE_DIR/'static/']
 
+# MEDIA
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR/'static/media'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -141,9 +145,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGIN_REDIRECT_URL = 'forum_app:index'
 LOGIN_URL = 'users_app:login'
-
 INTERNAL_IPS = ["127.0.0.1", ]
-
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 # Email settings gmail

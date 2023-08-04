@@ -1,11 +1,12 @@
-{% extends "base.html" %} {% load static%} {% block title %} Connexion 
+{% extends "base.html" %} 
+{% load static%} {% block title %} Connexion 
 {% endblock %} {% block styles %}
 <link href="{% static 'css/login.css'%}" rel="stylesheet" /> {% endblock %} 
 {% block main %}
 <main
     class="container d-flex flex-column justify-content-center align-items-center"
 >
-    <div class="border pt-4 pb-5 shadow col-md-5">
+    <div class="border pt-4 pb-5 shadow">
         {% if messages %} {% for msg in messages %}
         <div
             class="alert alert-{{msg.tags}} border-{{msg.tags}} mb-4 text-center border-2"

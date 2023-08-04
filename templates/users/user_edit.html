@@ -1,0 +1,30 @@
+{% extends 'base.html' %} {% load static%}
+{% block title %} {{ user_profile.user.first_name}} {{user_profile.user.last_name}} {% endblock title %} 
+{% block styles %}<link href="{% static 'css/login.css'%}" rel="stylesheet" /> {% endblock styles%}
+{% block corps %}
+
+<div class="row">
+    <div class="col d-flex justify-content-center align-items-center">
+        <div class="rounded rounded-circle d-flex justify-content-center align-items-center"
+            style="width: 150px; height: 150px; background-color: green">
+            <p class="text-white m-0 fw-bold" style="font-size: 50px">
+                {{username.0|upper }}
+            </p>
+        </div>
+    </div>
+    <div class="col">
+
+        <div class="login-header text-center mx-auto fw-bold bg-dark text-white mb-3">
+            Modifier mes information
+        </div>
+        <div style="width: 80%" class="m-auto form-group has-warning has-feddback">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in userForm %} {{ field }} {% endfor %}
+                {% for field in profileForm %} {{ field }} {% endfor %}
+                <button class="btn btn-primary form-control" type="submit">Enregistrer</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock corps %}
