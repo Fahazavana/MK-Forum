@@ -15,7 +15,9 @@ from django.urls.base import reverse_lazy
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.views.generic import DetailView, DeleteView, UpdateView
-
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+import os
 # Create your views here.
 
 
@@ -169,9 +171,30 @@ def updateUserProfile(request, pk):
 
 
 class UserChangeProfilePicture(LoginRequiredMixin, UpdateView):
-    """
-        Update Profile Picture
-    """
     template_name = "users/user_picture.html"
     model = Profile
     form_class = UpdateUserProfilePictureForm
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        user = self.request.user
+        # Get the old pic
+        # check if it exisit then delete
+        old_pic = user.profile.profile_pic.path
+        if os.path.exists(old_pic):
+            user.profile.profile_pic.delete()
+
+        # Get the new pic
+        # rename it and adjust the path
+        pic = form.cleaned_data['profile_pic']
+        print("PIIIIC",pic)
+        new_pic_name = f"{user.id}_{user.username}.{str(pic).split('.')[-1]}"
+        new_pic_path = os.path.join('static/media', new_pic_name)
+        # Write the file with the new filename
+        with open(new_pic_path, 'wb+') as destination:
+            for chunk in pic.chunks():
+                destination.write(chunk)
+
+        user.profile.profile_pic = new_pic_name  # Update the profile picture field
+        user.profile.save()  # Save the profile model to persist the changes
+        return response

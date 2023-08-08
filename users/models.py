@@ -1,9 +1,22 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.conf import settings
+import os
 
 # Create your models here.
 
+
+# def profilPicRename(instance, filename):
+#     print("1111",instance.profile_pic.path)
+#     print("2222", filename)
+#     if instance.profile_pic:
+#         try:
+#             os.remove(instance.profile_pic.path)
+#         except:
+#             pass
+#     return str(settings.MEDIA_ROOT)+str(instance.user.username)+"_"+str(instance.user.id)+"."+filename.split('.')[-1]
+    
 
 class Profile(models.Model):
     SHCOOL_LEVEL_CHOICE = [('SEC', 'Seconde'),
