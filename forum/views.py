@@ -84,6 +84,7 @@ class DeletePost(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 
+
 # Reaction handler
 @login_required
 def reactOnPost(request, pk, reactionType):
@@ -136,3 +137,18 @@ def commentPost(request, pk):
             messages.warning(request, "Votre commentaire est vide!")
             return redirect("forum_app:read", pk)
     return redirect("forum_app:read", pk)
+
+
+
+@login_required
+def deleteComment(request,postpk,pk):
+    post = {'postpk':postpk}
+    if request.method == "POST":
+        comment = PostComment.objects.get(pk=pk)
+        if comment.commentAuthor == request.user:
+            if comment:
+                comment.delete()
+                return redirect("forum_app:read",postpk)
+    
+    return render(request,"forum/comm_delete.html",post)
+

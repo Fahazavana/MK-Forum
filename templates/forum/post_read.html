@@ -68,16 +68,14 @@
             >
         </div>
         <div>
-            <a
-            href=""
-            class="btn card-link-read-post text-info text-decoration-none d-inline text-center"
-            ><i class="fas fa-pen"></i
-                ></a>
-                <button
-                class="btn card-link-read-post text-danger text-decoration-none d-inline text-center"
-                >
+            {% if user.id == comment.commentAuthor.id %}
+            <a href="{% url 'forum_app:update' Post.pk %}"
+                class="btn card-link-read-post text-info text-decoration-none d-inline text-center"><i class="fas fa-pen"></i></a>
+            <a href="{% url 'forum_app:comdelete' Post.pk comment.pk %}"
+                class="btn btn-smallcard-link-read-post text-danger text-decoration-none d-inline text-center">
                 <i class="fas fa-trash"></i>
-            </button>
+            </a>
+            {% endif %}
         </div>
     </div>
 </div>

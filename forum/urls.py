@@ -15,4 +15,6 @@ urlpatterns = [
          name='reaction'),
      path('read/<int:pk>/comment', views.commentPost,
          name='commenter'),
+    path('read/<int:postpk>/comment/delete/<int:pk>', views.deleteComment,
+         name='comdelete'),
 ]
