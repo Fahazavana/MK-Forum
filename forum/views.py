@@ -1,4 +1,4 @@
-from .forms import PostForm
+from .forms import PostForm,CommentForm
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from .models import Post, PostComment, Reaction
@@ -6,6 +6,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+
+
 # Home page View
 
 
@@ -28,9 +30,9 @@ class ReadPost(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        Reaction = {'up': context['Post'].reaction_set.filter(up=1).count(
+        reaction = {'up': context['Post'].reaction_set.filter(up=1).count(
         ), 'down': context['Post'].reaction_set.filter(down=1).count()}
-        context['Reaction'] = Reaction
+        context['Reaction'] = reaction
         return context
 
 
@@ -46,6 +48,7 @@ class CreatePost(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.authorPost = self.request.user
         return super().form_valid(form)
+
 
 # Update post View
 
@@ -69,7 +72,7 @@ class UpdatePost(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class DeletePost(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     """
         Delete Post View
-    """ 
+    """
     model = Post
     context_object_name = "Post"
     template_name = "forum/post_delete.html"
@@ -83,8 +86,6 @@ class DeletePost(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return False
 
 
-
-
 # Reaction handler
 @login_required
 def reactOnPost(request, pk, reactionType):
@@ -94,19 +95,19 @@ def reactOnPost(request, pk, reactionType):
         try:
             reaction = post.reaction_set.get(
                 reactedPost=pk, reactionAuthor=request.user)
-            if (reactionType == 'up'):
-                if (reaction.up == 0):
+            if reactionType == 'up':
+                if reaction.up == 0:
                     reaction.up = 1
-                    if (reaction.down == 1):
+                    if reaction.down == 1:
                         reaction.down = 0
-                elif (reaction.up == 1):
+                elif reaction.up == 1:
                     reaction.up = 0
-            elif (reactionType == 'down'):
-                if (reaction.down == 0):
+            elif reactionType == 'down':
+                if reaction.down == 0:
                     reaction.down = 1
-                    if (reaction.up == 1):
+                    if reaction.up == 1:
                         reaction.up = 0
-                elif (reaction.down == 1):
+                elif reaction.down == 1:
                     reaction.down = 0
             reaction.save()
 
@@ -114,12 +115,13 @@ def reactOnPost(request, pk, reactionType):
         except Reaction.DoesNotExist:
             if reactionType == "up":
                 up, down = 1, 0
-            elif vreactionType == "down":
+            elif reactionType == "down":
                 up, down = 0, 1
             reaction = Reaction(reactedPost=post, up=up,
                                 down=down, reactionAuthor=request.user)
             reaction.save()
     return redirect("forum_app:read", pk)
+
 
 # Comment on a post
 @login_required
@@ -139,16 +141,28 @@ def commentPost(request, pk):
     return redirect("forum_app:read", pk)
 
 
-
 @login_required
-def deleteComment(request,postpk,pk):
-    post = {'postpk':postpk}
+def deleteComment(request, postpk, pk):
+    post = {'postpk': postpk}
     if request.method == "POST":
         comment = PostComment.objects.get(pk=pk)
         if comment.commentAuthor == request.user:
             if comment:
                 comment.delete()
-                return redirect("forum_app:read",postpk)
-    
-    return render(request,"forum/comm_delete.html",post)
+                messages.success(request,'Suppression commentaire effectuer avec succes')
+                return redirect("forum_app:read", postpk)
 
+    return render(request, "forum/comm_delete.html", post)
+
+def updatecomment(request,postpk,pk):
+    comment = PostComment.objects.get(pk=pk)
+    form = CommentForm(instance=comment)
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            messages.success(request,'Mise a jour commentaire effectuer avec succes')
+            return redirect("forum_app:read", postpk)
+            
+    return render(request,'forum/comm_update.html',{'form':form})
+    

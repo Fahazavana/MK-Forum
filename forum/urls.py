@@ -17,4 +17,6 @@ urlpatterns = [
          name='commenter'),
     path('read/<int:postpk>/comment/delete/<int:pk>', views.deleteComment,
          name='comdelete'),
+    path('read/<int:postpk>/comment/update/<int:pk>', views.updatecomment,
+         name='comupdate'),
 ]

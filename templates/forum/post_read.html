@@ -69,7 +69,7 @@
         </div>
         <div>
             {% if user.id == comment.commentAuthor.id %}
-            <a href="{% url 'forum_app:update' Post.pk %}"
+            <a href="{% url 'forum_app:comupdate' Post.pk comment.pk %}"
                 class="btn card-link-read-post text-info text-decoration-none d-inline text-center"><i class="fas fa-pen"></i></a>
             <a href="{% url 'forum_app:comdelete' Post.pk comment.pk %}"
                 class="btn btn-smallcard-link-read-post text-danger text-decoration-none d-inline text-center">

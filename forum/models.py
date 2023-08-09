@@ -2,6 +2,7 @@ from django.db import models
 from users.models import User
 from django.urls import reverse
 
+
 # Create your models here.
 
 # Post models
@@ -27,7 +28,8 @@ class PostComment(models.Model):
     commentAuthor = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "{}-{} {}".format(self.id, self.commentedByUser, self.commentPost)
+        return "{}-{} {}".format(self.id, self.commentAuthor, self.commentPost)
+
 
 class Reaction(models.Model):
     up = models.IntegerField(default=0)
