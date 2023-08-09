@@ -1,109 +1,105 @@
 {% extends 'base.html' %} {% load static%}
 {% block title %}{{ Post.titlePost}}-{{Post.authorPost}}{% endblock%}
 
-{% block corps%}
-{% if messages %} {% for msg in messages %}
-        <div
-            class="alert alert-{{msg.tags}} border-{{msg.tags}} mb-4 text-center border-2"
-        >
-            {{ msg}}
+{% block main%}
+<div class="container mt-5">
+
+
+    <div class="row">
+        <div class="d-flex align-items-center">
+            <div class="container-profile-picture2">
+                <img class="profile-picture" src="{{Post.authorPost.profile.profile_pic.url}}"
+                    alt="{{post.authorPost.username}} image">
+            </div>
+                <div class=" w-100 d-flex justify-content-between">
+                    <div class="ps-5">
+                        {{ Post.titlePost }}
+                    </div>
+                    <div class="text-muted ">
+                        {% if Post.authorPost.first_name != ""%}
+                        {{Post.authorPost.first_name}}{{Post.authorPost.last_name |truncatewords:3}}
+                        {%else%}
+                        {{Post.authorPost}}
+                        {% endif%}
+                    </div>
+                </div>
         </div>
-        {% endfor %} {% endif %}
-<div class="card border-0 shadow p-0">
-    <div class="card-header d-flex justify-content-between">
-        <a href="" class="text-info d-block">{% if Post.authorPost.first_name != "" %}{{Post.authorPost.first_name}}{{Post.authorPost.last_name | truncatewords:3}}{% else %}{{Post.authorPost}}{% endif %} </a>
-        <h5 class="text-center fw-bold card-titre">{{ Post.titlePost }}</h5>
+        <div class="card-body">{{Post.contentPost}}</div>
+        <div class="d-flex justify-content-between">
+            <div>
+                <a href="{% url 'forum_app:reaction' pk=Post.pk reactionType='up' %}"
+                    class="btn card-link-read-post text-info text-decoration-none d-inline text-center">
+                    <i class="fas fa-arrow-up"></i> {{Reaction.up}}</a>
+                <a href="{% url 'forum_app:reaction' pk=Post.pk reactionType='down' %}"
+                    class="btn card-link-read-post text-info text-decoration-none d-inline text-center"><i class="fas fa-arrow-down"></i> {{Reaction.down }}</a>
+            </div>
+            <div>
+                        {% if user.id == Post.authorPost.id %}
+                        <a href="{% url 'forum_app:update' Post.pk %}"
+                            class="btn card-link-read-post text-info text-decoration-none d-inline text-center"><i
+                                class="fas fa-pen"></i></a>
+                        <a href="{% url 'forum_app:delete' Post.pk %}"
+                            class="btn btn-smallcard-link-read-post text-danger text-decoration-none d-inline text-center">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                        {% endif %}
+            </div>
+        </div>
     </div>
-    <div class="card-body">{{Post.contentPost}}</div>
     <div class="card-footer d-flex justify-content-between">
-        <div>
-            <a
-            href="{% url 'forum_app:reaction' pk=Post.pk reactionType='up' %}"
-            class="btn card-link-read-post text-info text-decoration-none d-inline text-center"
-            >Up : {{ Reaction.up }}</a
-        >
-        <a
-            href="{% url 'forum_app:reaction' pk=Post.pk reactionType='down' %}"
-            class="btn card-link-read-post text-info text-decoration-none d-inline text-center"
-            >Down : {{ Reaction.down }}</a
-        >
+        
+
+
+        {% if Post.postcomment_set.all %}
+        {% for comment in Post.postcomment_set.all %}
+
+
+        <div class="comment mt-5 bg-white">
+            <div class="card-header d-flex justify-content-between">
+                <a href="" class="text-info d-block">
+                    {% if comment.commentAuthor.first_name != ""%}
+                    {{comment.commentAuthor.first_name}}{{comment.commentAuthor.last_name | truncatewords:3}}
+                    {%else%}{{comment.commentAuthor}}
+                    {% endif %} </a>
+            </div>
+            <div class="card-body">{{comment.contentComment}}</div>
+            <div class="card-footer d-flex justify-content-between">
+                <div>
+                    <a href=""
+                        class="btn card-link-read-post text-info text-decoration-none d-inline text-center">React</a>
+                    <a href=""
+                        class="btn card-link-read-post text-info text-decoration-none d-inline text-center">React</a>
+                </div>
+                <div>
+                    {% if user.id == comment.commentAuthor.id %}
+                    <a href="{% url 'forum_app:comupdate' Post.pk comment.pk %}"
+                        class="btn card-link-read-post text-info text-decoration-none d-inline text-center"><i
+                            class="fas fa-pen"></i></a>
+                    <a href="{% url 'forum_app:comdelete' Post.pk comment.pk %}"
+                        class="btn btn-smallcard-link-read-post text-danger text-decoration-none d-inline text-center">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-        <div>
-            {% if user.id == Post.authorPost.id %}
-            <a
-                href="{% url 'forum_app:update' Post.pk %}"
-                class="btn card-link-read-post text-info text-decoration-none d-inline text-center"
-                ><i class="fas fa-pen"></i
-            ></a>
-            <a href="{% url 'forum_app:delete' Post.pk %}"
-                class="btn btn-smallcard-link-read-post text-danger text-decoration-none d-inline text-center"
-            >
-                <i class="fas fa-trash"></i>
-                </a>
-            {% endif %}
+        {% endfor %}
+
+        {% endif %}
+
+        {% if user.is_authenticated %}
+        <div class="mt-5 m-auto form-group has-warning has-feddback">
+            <form action="{% url 'forum_app:commenter' Post.pk %}" method="post">
+                {% csrf_token %}
+                <textarea id="" class="form-control mb-3" style="height: 100px" name="commentaire"></textarea>
+                <input type="submit" value="Commenter" class="form-control btn btn-primary" />
+            </form>
         </div>
+        {% else %}
+        <div class="card card-info  text-center m-sm-2 mb-1 mt-1">
+            Connecter-vous pour répondre
+        </div>
+        {% endif %}
     </div>
 </div>
-
-{% if Post.postcomment_set.all %}
-{% for comment  in Post.postcomment_set.all %}
-
-
-<div class="comment mt-5 bg-white">
-    <div class="card-header d-flex justify-content-between">
-        <a href="" class="text-info d-block">{% if comment.commentAuthor.first_name != "" %}{{comment.commentAuthor.first_name}}{{comment.commentAuthor.last_name | truncatewords:3}}{% else %}{{comment.commentAuthor}}{% endif %} </a>
-    </div>
-    <div class="card-body">{{comment.contentComment}}</div>
-    <div class="card-footer d-flex justify-content-between">
-        <div>
-            <a
-            href=""
-            class="btn card-link-read-post text-info text-decoration-none d-inline text-center"
-            >React</a
-            >
-            <a
-            href=""
-            class="btn card-link-read-post text-info text-decoration-none d-inline text-center"
-            >React</a
-            >
-        </div>
-        <div>
-            {% if user.id == comment.commentAuthor.id %}
-            <a href="{% url 'forum_app:comupdate' Post.pk comment.pk %}"
-                class="btn card-link-read-post text-info text-decoration-none d-inline text-center"><i class="fas fa-pen"></i></a>
-            <a href="{% url 'forum_app:comdelete' Post.pk comment.pk %}"
-                class="btn btn-smallcard-link-read-post text-danger text-decoration-none d-inline text-center">
-                <i class="fas fa-trash"></i>
-            </a>
-            {% endif %}
-        </div>
-    </div>
-</div>
-{% endfor %}
-
-{% endif %}
-
-{% if user.is_authenticated %}
-<div class="mt-5 m-auto form-group has-warning has-feddback">
-    <form action="{% url 'forum_app:commenter' Post.pk %}" method="post">
-        {% csrf_token %}
-        <textarea
-        id=""
-        class="form-control mb-3"
-        style="height: 100px"
-        name="commentaire"
-        ></textarea>
-        <input
-        type="submit"
-        value="Commenter"
-        class="form-control btn btn-primary"
-        />
-    </form>
-</div>
-{% else %}
-<div class="card card-info  text-center m-sm-2 mb-1 mt-1">
-	Connecter-vous pour répondre
-</div>
-{% endif %}
-
 {% endblock %}

@@ -39,4 +39,4 @@ class Reaction(models.Model):
     reactionDate = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return "Reaction de {} sur {}".format(self.voteAuthor, self.votedPost)
+        return "Reaction de {} sur {}".format(self.reactionAuthor, self.reactedPost)

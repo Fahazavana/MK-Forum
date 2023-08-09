@@ -4,7 +4,7 @@ from .forms import FormResetPassword, FormUpdatePassword
 from . import views
 
 
-app_name = "user_app"
+app_name = "users_app"
 
 urlpatterns = [
     path("create/", views.registerUser, name='create'),

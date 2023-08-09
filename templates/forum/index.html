@@ -1,15 +1,23 @@
-{% extends 'base.html' %} {% block corps%} {% for post in Post %}
-<div class="card border-0 shadow p-0 mt-3">
-    <div class="card-header py-0 d-flex justify-content-between">
-        <a href="{% url 'user_app:profile' post.authorPost.pk %}" class="text-info d-block">{% if post.authorPost.first_name != "" %}{{post.authorPost.first_name}}{% else %}{{post.authorPost}}{% endif %} </a>
-        <h5 class="text-center fw-bold card-titre mb-0">{{ post.titlePost }}</h5>
-    </div>
-    <div class="card-body">
-        <a
-            href="{% url 'forum_app:read' post.pk %}"
-            class="card-link text-black text-decoration-none"
-            ><p class="card-text">{{post.contentPost|truncatewords:15}}</p></a
-        >
+{% extends 'base.html' %} {% block main %} 
+
+<div class="container">
+{% for post in Post %}
+<div class="card mt-5 shadow">
+    <div class="card-body d-flex">
+        <div class="container-profile-picture">
+            <img class="profile-picture" src="{{post.authorPost.profile.profile_pic.url}}" alt="{{post.authorPost.username}} image">
+        </div>
+            <div class="w-100">
+                    <div class="py-0 d-flex justify-content-between">
+                        <span class="h5 fw-bold">{{ post.titlePost }}</span>
+                        <a href="{% url 'users_app:profile' post.authorPost.pk %}" class="text-info d-block">{% if post.authorPost.first_name != "" %}{{post.authorPost.first_name}}{% else %}{{post.authorPost}}{% endif %} </a>
+                    </div>
+                <p class="card-text">{{post.contentPost|truncatewords:60}} <a href="{% url 'forum_app:read' post.pk %}" class="card-link text-decoration-none"> [read more]</a></p>
+                <span class="text-muted">{{post.postcomment_set.count}} Comment | {{post.reaction_set.count}} Reaction</span>
+            </div>
     </div>
 </div>
-{% endfor %} {%endblock%}
+
+{% endfor %}
+</div>
+{%endblock%}
