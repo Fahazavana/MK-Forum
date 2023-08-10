@@ -1,51 +1,30 @@
-{% extends "base.html" %} 
-{% load static%} {% block title %} Connexion 
-{% endblock %} {% block styles %}
-<link href="{% static 'css/login.css'%}" rel="stylesheet" /> {% endblock %} 
+{% extends "base.html" %}
+{% load static%} {% block title %} Connexion
+{% endblock %}
 {% block main %}
-<main
-    class="container d-flex flex-column justify-content-center align-items-center"
->
-    <div class="border pt-4 pb-5 shadow">
-        {% if messages %} {% for msg in messages %}
-        <div
-            class="alert alert-{{msg.tags}} border-{{msg.tags}} mb-4 text-center border-2"
-        >
-            {{ msg}}
-        </div>
-        {% endfor %} {% endif %}
 
-        <div
-            class="login-header text-center mx-auto fw-bold bg-dark text-white mb-3"
-        >
-            Connexion
+<div class="container">
+    <div class="border shadow">
+        <div class="text-center mx-auto fw-bold bg-dark text-white py-3 mb-3">
+            Log in
         </div>
-        <div
-            style="width: 80%"
-            class="mx-auto form-group has-warning has-feddback"
-        >
+        <div class="mx-auto form-group has-warning has-feddback px-5 form-container">
             <form action="." method="POST">
                 {% csrf_token %} {% for err in form.non_field_errors %}
-                <div
-                    class="text-danger text-center border border-2 rounded-3 border-danger mb-3 p-2"
-                >
+                <div class="text-danger text-center border border-2 rounded-3 border-danger mb-3 p-2">
                     <p class="m-0">{{ err }}</p>
                 </div>
                 {% endfor %} {% for field in form %} {{ field }} {% endfor %}
-                <input
-                    type="submit"
-                    value="Connexion"
-                    class="form-control btn btn-primary"
-                />
+                <input type="submit" value="Sing in" class="form-control btn btn-primary mb-3" />
             </form>
         </div>
-        <div class="text-center p-2 mt-1">
+        <div class="text-center pb-3">
             <a href="{% url 'users_app:reset_password' %}">
-                Mot de passe oublié?</a
-            >
+                Forgot password</a>
             |
-            <a href="{% url 'users_app:create' %}"> Crée un compte</a>
+            <a href="{% url 'users_app:create' %}"> Create a new account</a>
         </div>
     </div>
-</main>
+</div>
+
 {% endblock main %}

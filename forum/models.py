@@ -40,3 +40,15 @@ class Reaction(models.Model):
 
     def __str__(self):
         return "Reaction de {} sur {}".format(self.reactionAuthor, self.reactedPost)
+
+
+class ReactionComment(models.Model):
+    up = models.IntegerField(default=0)
+    down = models.IntegerField(default=0)
+    reactedPost = models.ForeignKey(Post, on_delete=models.RESTRICT)
+    reactedComment = models.ForeignKey(PostComment, on_delete=models.CASCADE)
+    reactionAuthor = models.ForeignKey(User, on_delete=models.CASCADE)
+    reactionDate = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "Reaction de {} sur {}".format(self.reactionAuthor, self.reactedComment)

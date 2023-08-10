@@ -4,9 +4,16 @@
 {% for post in Post %}
 <div class="card mt-5 shadow">
     <div class="card-body d-flex">
-        <div class="container-profile-picture">
-            <img class="profile-picture" src="{{post.authorPost.profile.profile_pic.url}}" alt="{{post.authorPost.username}} image">
+        {% if user.authorPost.profile.profilepicture == true %}
+        <div
+            class="container-profile-picture-create d-flex text-white fw-bold justify-content-center align-items-center p-0 m-0">
+            <p class="nopic-small p-0 m-0">{{post.authorPost.username.0|upper}}</p>
         </div>
+        {% else %}
+        <div class="container-profile-picture-create">
+            <img class="profile-picture" src="{{user.authorPost.profile.profilepicture}}" alt="{{user.username}} image">
+        </div>
+        {% endif%}
             <div class="w-100">
                     <div class="py-0 d-flex justify-content-between">
                         <span class="h5 fw-bold">{{ post.titlePost }}</span>

@@ -13,7 +13,9 @@ urlpatterns = [
          name='delete'),  # DELETE
     path('read/<int:pk>/react/<str:reactionType>', views.reactOnPost,
          name='reaction'),
-     path('read/<int:pk>/comment', views.commentPost,
+    path('read/<int:postpk>/react/comment/<str:reactionType>/<int:pk>', views.reactOnComment,
+         name='reactioncomment'),
+    path('read/<int:pk>/comment', views.commentPost,
          name='commenter'),
     path('read/<int:postpk>/comment/delete/<int:pk>', views.deleteComment,
          name='comdelete'),

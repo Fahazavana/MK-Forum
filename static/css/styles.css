@@ -1,60 +1,98 @@
-html {
-    position: relative;
+* {
+  box-sizing: border-box;
 }
-
 body {
-    padding-top: 4.5rem;
-    background-image: url("../img/bg.png");
+  margin: 0;
+  padding: 0;
 }
 
-main {
-    min-height: 76vh;
+/* profil pic in index for post lis */
+.container-profile-picture {
+  width: 100px;
+  padding: 10px;
 }
 
-.footer {
-    width: 100%;
+/* profil pic in read for post lis */
+.container-profile-picture-create {
+  width: 70px;
+  height: 70px;
+  padding: 2px;
 }
 
-.input_login {
-    display: block;
+.profile-picture, .nopic {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #212529;
+}
+.nopic{
+  height: 100%;
+  font-size: 10rem;
+  background-color: green;
+  color: white;
+  font-weight: 900;
 }
 
-.account-avatar {
-    width: 20vw;
-    height: 20vw;
-    border-radius: 50%;
-    display: block;
+.nopic-small{
+  height: 100%;
+  width: 100%;
+  font-size: 2.5rem;
+  color: white;
+  font-weight: 900;
+  border-radius: 50%;
+  text-align: center;
+  background-color: green;
+  border: 3px solid #212529;
 }
 
-
-.infoc {
-    background-color: rgb(190, 190, 190);
+/* Handling form */
+.mod-input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  border-bottom: 2px solid gray;
+  background-color: transparent;
 }
 
-.form-wrapper {
-    margin: 1em;
+.mod-input:focus {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px solid #0d6efd;
+  border-radius: 0;
+  box-shadow: none;
 }
 
-.form-wrapper>textarea,
-.form-wrapper>input {
-    width: 100%;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #212529;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border-radius: 0.25rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+/* User profile */
+
+.profile-pic {
+  height: 250px;
+  width: 250px;
+}
+.profile-pic img {
+  width: 100%;
+  border-radius: 50%;
+  border: 5px solid #212529;
+  object-fit: contain;
+}
+.btn.edit-profil-pic{
+  width: max-content;
+  height: max-content;
+}
+.edit-profil-pic {
+  position: relative;
+  left:83%;
+  bottom: 36px;
+}
+.profil-item{
+  margin: 0;
+  padding: 0;
 }
 
-label.form-label {
-    display: block !important;
+/* New post */
+
+.post-title:focus{
+  color:#212529;
 }
-
-

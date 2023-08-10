@@ -8,7 +8,7 @@ class PostForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(PostForm, self).__init__(*args, **kwargs)
         self.fields['titlePost'].widget.attrs = {
-            'class': 'form-control mb-3 my_post_title text-center', 'placeholder': "Titre"}
+            'class': 'form-control mb-3 mod-input text-white post-title', 'placeholder': "Titre"}
         self.fields['contentPost'].widget.attrs = {
             'class': "form-control mb-3",
             'style': "height: 100px"}

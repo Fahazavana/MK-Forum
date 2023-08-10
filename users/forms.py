@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import FileInput
 from django.forms.utils import ErrorList
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, SetPasswordForm, PasswordResetForm, PasswordChangeForm
@@ -24,9 +25,9 @@ class UserLoginForm(AuthenticationForm):
         self.error_class = TextErrorList
         self.error_messages['invalid_login'] = "Saisissez un nom d’utilisateur et un mot de passe valides."
         self.fields['username'].widget.attrs.update(
-            {'class': 'form-control mb-2 my_login', "placeholder": "Nom d'utilisateur"})
+            {'class': 'form-control mb-4 mod-input', "placeholder": "Username"})
         self.fields['password'].widget.attrs.update(
-            {'class': 'form-control mb-2 my_login', "placeholder": "Mot de passe"})
+            {'class': 'form-control mb-4 mod-input', "placeholder": "Password"})
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -35,13 +36,13 @@ class UserRegistrationForm(UserCreationForm):
         self.error_css_class = "text-danger"
         self.error_class = TextErrorList
         self.fields['username'].widget.attrs.update(
-            {'class': 'form-control mb-3 my_login', "placeholder": "Nom d'utilisateur"})
+            {'class': 'form-control mb-4 mod-input', "placeholder": "Nom d'utilisateur"})
         self.fields['email'].widget.attrs.update(
-            {'class': 'form-control mb-3 my_login', "placeholder": "Votre@Email.com"})
+            {'class': 'form-control mb-4 mod-input', "placeholder": "Votre@Email.com"})
         self.fields['password1'].widget.attrs.update(
-            {'class': 'form-control mb-3 my_login', "placeholder": "Mot de passe"})
+            {'class': 'form-control mb-4 mod-input', "placeholder": "Mot de passe"})
         self.fields['password2'].widget.attrs.update(
-            {'class': 'form-control mb-3 my_login', "placeholder": "Re-saisir votre mots de passe"})
+            {'class': 'form-control mb-4 mod-input', "placeholder": "Re-saisir votre mots de passe"})
 
     class Meta:
         model = User
@@ -64,7 +65,7 @@ class FormResetPassword(PasswordResetForm):
         self.error_css_class = "text-danger"
         self.error_class = TextErrorList
         self.fields['email'].widget.attrs.update(
-            {'class': 'form-control mb-3 my_login', "placeholder": "Entrez votre e-mail"})
+            {'class': 'form-control mb-4 mod-input', "placeholder": "Enter your email"})
 
 
 class FormUpdatePassword(SetPasswordForm):
@@ -73,9 +74,9 @@ class FormUpdatePassword(SetPasswordForm):
         self.error_css_class = "text-danger"
         self.error_class = TextErrorList
         self.fields['new_password1'].widget.attrs.update(
-            {'class': 'form-control mb-3 my_login', "placeholder": "Mot de passe"})
+            {'class': 'form-control mb-4 mod-input', "placeholder": "New password"})
         self.fields['new_password2'].widget.attrs.update(
-            {'class': 'form-control mb-2 my_login', "placeholder": "Re-saisir votre mots de passe"})
+            {'class': 'form-control mb-4 mod-input', "placeholder": "Re-type your password"})
 
 
 
@@ -87,11 +88,11 @@ class FormChangePassword(PasswordChangeForm):
         self.error_css_class = "text-danger"
         self.error_class = TextErrorList
         self.fields['old_password'].widget.attrs.update(
-            {'class': 'form-control mb-3 my_login', "placeholder": "ancien mots de passe"})
+            {'class': 'form-control mb-4 mod-input', "placeholder": "Old password"})
         self.fields['new_password1'].widget.attrs.update(
-            {'class': 'form-control mb-3 my_login', "placeholder": "Mot de passe"})
+            {'class': 'form-control mb-4 mod-input', "placeholder": "New password"})
         self.fields['new_password2'].widget.attrs.update(
-            {'class': 'form-control mb-2 my_login', "placeholder": "Re-saisir votre mots de passe"})
+            {'class': 'form-control mb-4 mod-input', "placeholder": "Re-type your new password"})
 
 
 
@@ -106,9 +107,9 @@ class UpdateUserForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['first_name'].widget.attrs.update(
-            {'class': 'form-control mb-3 my_login', 'placeholder': 'Prenom(s)'})
+            {'class': 'form-control mb-4 mod-input', 'placeholder': 'Prenom(s)'})
         self.fields['last_name'].widget.attrs.update(
-            {'class': 'form-control mb-3 my_login', 'placeholder': 'Nom'})
+            {'class': 'form-control mb-4 mod-input', 'placeholder': 'Nom'})
 
 # Update Profile
 
@@ -122,11 +123,11 @@ class UpdateUserProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['dateNaissance'].widget.attrs.update(
-            {'class': 'form-control mb-3 my_login'})
+            {'class': 'form-control mb-4 mod-input'})
         self.fields['niveaux'].widget.attrs.update(
-            {'class': 'form-control mb-3 my_login', 'placeholder': 'Niveaux'})
+            {'class': 'form-control mb-4 mod-input', 'placeholder': 'Niveaux'})
         self.fields['adresse'].widget.attrs.update(
-            {'class': 'form-control mb-3 my_login', 'placeholder': 'Adresse'})
+            {'class': 'form-control mb-4 mod-input', 'placeholder': 'Adresse'})
         
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
@@ -138,6 +139,9 @@ class UpdateUserProfilePictureForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['profile_pic']
+        widgets = {
+            'profile_pic':FileInput()
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

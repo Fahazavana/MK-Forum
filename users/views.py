@@ -187,7 +187,6 @@ class UserChangeProfilePicture(LoginRequiredMixin, UpdateView):
         # Get the new pic
         # rename it and adjust the path
         pic = form.cleaned_data['profile_pic']
-        print("PIIIIC",pic)
         new_pic_name = f"{user.id}_{user.username}.{str(pic).split('.')[-1]}"
         new_pic_path = os.path.join('static/media', new_pic_name)
         # Write the file with the new filename

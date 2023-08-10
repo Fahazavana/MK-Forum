@@ -1,56 +1,62 @@
 {% extends 'base.html' %}
 {% block title %} {{ user_profile.user.first_name}} {{user_profile.user.last_name}} {%endblock title %}
-{% block corps %}
+{% block main %}
+<div class="container">
+    <div class="card p-5 shadow">
+        <div class="profil-pic-container mb-5">
+            <div class="mx-auto profile-pic">
+                {% if user_profile.profilepicture == true %}
+                <div class="nopic d-flex text-white fw-bold justify-content-center align-items-center p-0 m-0">
+                    <p class="p-0 m-0">{{user_profile.user.username.0|upper}}</p>
+                </div>
+                {% else %}
+                    <img src="{{user_profile.profilicture}}" alt="{{user.username}} image">
+                {% endif%}
 
-<div class="row">
-    {% if messages %} {% for msg in messages %}
-    <div class="alert alert-{{msg.tags}} border-{{msg.tags}} mt-5 mb-4 text-center border-2">
-        {{ msg}}
-    </div>
-    {% endfor %} {% endif %}
-    <div class="col">
-        {% if user_profile.profile_pic.url is none %}
-        <div class="rounded rounded-circle d-flex justify-content-center align-items-center"
-            style="width: 150px; height: 150px; background-color: green">
-            <p class="text-white m-0 fw-bold" style="font-size: 50px">
-                {{user_profile.user.username.0|upper }}
-            </p>
+                {% if user_profile.user == user %}
+                <a class="btn btn-primary edit-profil-pic" href="{%url 'users_app:profile_pic' user.pk %}"><i
+                        class="fas fa-pen"></i></a>
+                {% endif %}
+            </div>
         </div>
-        {% else %}
-        <div class="d-flex justify-content-center align-items-center" style="width: 150px; height: 150px">
-            <img class="w-100 img-fluid" src="{{user_profile.profile_pic.url}}" alt="{{user.username}} image">
-        </div>
-        {% endif %}
+
+
         {% if user_profile.user == user %}
-        <a class="btn btn-primary w-100" href="{%url 'user_app:profile_pic' user.pk %}">Changer ma photo de profile <i class="fas fa-pen"></i></a>
+        <div class="px-3 py-2">
+            <a class="btn btn-primary w-100" href="{% url 'users_app:edit' user.pk %}">Edit
+                my profile <i class="fas fa-pen"></i></a>
+        </div>
         {% endif %}
 
-    </div>
-    <ul class="col list-group">
+        <ul class="profil-item py-3">
+
+
+            {% if user_profile.user == user %}
+            <li class="list-group-item">
+                Username : {{user_profile.user.username}}
+            </li>
+            {% endif %}
+            <li class="list-group-item">Lastname : {{ user_profile.user.first_name }}</li>
+            <li class="list-group-item">Firstname : {{ user_profile.user.last_name}}</li>
+            <li class="list-group-item">Email : {{user_profile.user.email}}</li>
+            <li class="list-group-item">
+                Date de naissance : {{ user_profile.dateNaissance}}
+            </li>
+            <li class="list-group-item">Adresse : {{ user_profile.adresse}}</li>
+            <li class="list-group-item">Level : {{user_profile.niveaux}}</li>
+
+        </ul>
+
         {% if user_profile.user == user %}
-        <li class="list-group-item"><a class="btn btn-primary w-100" href="{% url 'user_app:edit' user.pk %}"> Modifier
-                mon profile <i class="fas fa-pen"></i></a></li>
-        <li class="list-group-item">
-            Nom d' utilisateur : {{user_profile.user.username}}
-        </li>
-        {% endif %}
-        <li class="list-group-item">Nom : {{ user_profile.user.first_name }}</li>
-        <li class="list-group-item">Prenom : {{ user_profile.user.last_name}}</li>
-        <li class="list-group-item">E-mail : {{user_profile.user.email}}</li>
-        <li class="list-group-item">
-            Date de naissance : {{ user_profile.dateNaissance}}
-        </li>
-        <li class="list-group-item">Adresse : {{ user_profile.adresse}}</li>
-        <li class="list-group-item">Niveaux : {{user_profile.niveaux}}</li>
-        {% if user_profile.user == user %}
-        <li class="list-group-item"><a class="btn btn-primary w-100" href="{% url 'user_app:changepassword' user.pk%}">
-                Modifier
-                mon mots de passe <i class="fas fa-pen"></i></a></li>
-        <li class="list-group-item"><a href="{% url 'user_app:delete' user.pk %}" class="btn btn-danger w-100"> Suprimer
-                mon compte
+        <div class="px-3 py-2 d-flex justify-content-between">
+            <a class="btn btn-primary" href="{% url 'users_app:changepassword' user.pk%}">Change my password <i
+                    class="fas fa-pen"></i></a>
+            <a href="{% url 'users_app:delete' user.pk %}" class="btn btn-danger">
+                Delete my account
                 <i class="fas fa-trash"></i>
-            </a></li>
+            </a>
+        </div>
         {% endif %}
-    </ul>
+    </div>
 </div>
-{% endblock corps %}
+{% endblock %}

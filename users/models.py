@@ -39,8 +39,15 @@ class Profile(models.Model):
     adresse = models.CharField(blank=True, max_length=50)
     profile_pic = models.ImageField(null=True,blank=True,default=None)
 
+    @property
+    def profilpicture(self):
+        if self.profile_pic:
+            return self.profile_pic.url 
+        return ''
     def __str__(self):
         return "{} {}".format(self.user.id, self.user.username)
 
     def get_absolute_url(self):
         return reverse('user_app:profile', kwargs={'pk': self.pk})
+    
+    

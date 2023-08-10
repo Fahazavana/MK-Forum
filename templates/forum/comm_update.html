@@ -1,18 +1,38 @@
 {% extends 'base.html' %}
 {% load static%}
 {% block title %}Mise à jour {{ post.titlePost}}-{{post.authorPost}}{% endblock%}
-{% block styles%}
-<link href="{% static 'css/post_cu.css'%}" rel="stylesheet" />
-{%endblock%}
-{% block corps%}
-<div class="border-0 py-5 shadow">
-    <div class="text-center fw-bold text-muted mb-2">Modification</div>
-    <div style="width: 80%" class="m-auto form-group has-warning has-feddback">
-        <form method="post">
-            {% csrf_token%}
+
+{% block main%}
+
+<div class="container">
+    <form method="POST" class="card shadow">
+        {% csrf_token%}
+        <div class="d-flex align-items-center fw-bold bg-dark text-white">
+            <div class="container-profile-picture">{% if user.profile.profilepicture == true %}
+                <div
+                    class="container-profile-picture-create d-flex text-white fw-bold justify-content-center align-items-center p-0 m-0">
+                    <p class="nopic-small p-0 m-0">{{user.username.0|upper}}</p>
+                </div>
+                {% else %}
+                <div class="container-profile-picture-create">
+                    <img class="profile-picture" src="{{user.profile.profilepicture}}" alt="{{user.username}} image">
+                </div>
+                {% endif%}
+            </div>
+            <div class="w-100 px-3">
+                <div class="fw-bold text-center py-2">
+                    Updating comment
+                </div>
+            </div>
+        </div>
+        <div class="p-4">
             {{form.contentComment}}
-            <input type="submit" value="Mettre à jour" class="form-control btn btn-primary" />
-        </form>
-    </div>
+            <div>
+                <a href="{% url 'forum_app:read' postpk %}" class="w-25 btn btn-secondary">Cancel</a>
+                <input type="submit" value="Update" class="w-25 btn btn-primary" />
+            </div>
+        </div>
+    </form>
 </div>
+
 {% endblock %}

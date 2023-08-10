@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 {% block title %}Suprimer {{ post.titlePost}}-{{post.authorPost}}{% endblock%}
-{% block corps%}
-<div class="d-flex  justify-content-center p-5">
-    <div class="popup card col-6 p-3 shadow">
-        <p class="fs-4 text-center p-2">
-            Etes-vous sûr de suprimer cette publication?
-        </p>
-        <form method="post" class="d-flex justify-content-between">
-            {% csrf_token %}
-            <input class="btn btn-danger" type="submit" value="Oui" />
-            <a href="{% url 'forum_app:read' post.pk %}" class="btn btn-primary"
-                >Non</a
-            >
-        </form>
+{% block main%}
+<div class="container">
+    <div class="card shadow">
+        <div class="text-center fs-4 fw-bold bg-dark text-white py-3 mb-3">
+            Are you sure to delete this post?
+        </div>
+        <div class="p-3">
+            <form method="post" class="d-flex justify-content-between">
+                {% csrf_token %}
+                <a href="{% url 'forum_app:read' postpk %}" class="btn btn-primary fw-bold w-25">Cancel</a>
+                <input class="btn btn-danger fw-bold w-25" type="submit" value="Delete" />
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}

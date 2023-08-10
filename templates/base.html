@@ -13,14 +13,13 @@
     <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css'%}" />
 
     <!-- Custom Css -->
-    <!-- <link href="{% static 'css/styles.css'%}" rel="stylesheet" /> -->
-        <link href="{% static 'css/newstyles.css'%}" rel="stylesheet" />
+    <link href="{% static 'css/styles.css'%}" rel="stylesheet" />
     {% block styles %} {%endblock%}
 </head>
 
 <body>
     <!-- navbar-->
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-5">
         <div class="container">
             <a href="{% url 'forum_app:index' %}" class="navbar-brand">
                 <span class="navbar-brand"><i class="fas fa-book-open"></i> MKF </span>
@@ -68,20 +67,21 @@
             </div>
         </div>
     </nav>
-    <!-- main image & intro -->
-    <div class="container">
-        {% if messages %} {% for msg in messages %}
+    <!-- message -->
+    {% if messages %}
+    <div class="container mb-4">
+        {% for msg in messages %}
         <div class="alert alert-{{msg.tags}} border-{{msg.tags}} mb-4 text-center border-2">
             {{ msg}}
         </div>
-        {% endfor %} {% endif %}
+        {% endfor %}
     </div>
-<main>
-        
-    {% block main %}
+    {% endif %}
+    <main>
+        {% block main %}
 
-    {% endblock main%}
-</main>
+        {% endblock main%}
+    </main>
     <!-- bootstrap js -->
     <script src="{% static 'bs5/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'fontawesome/js/all.min.js' %}"></script>

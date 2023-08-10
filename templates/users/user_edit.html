@@ -1,30 +1,42 @@
 {% extends 'base.html' %} {% load static%}
-{% block title %} {{ user_profile.user.first_name}} {{user_profile.user.last_name}} {% endblock title %} 
-{% block styles %}<link href="{% static 'css/login.css'%}" rel="stylesheet" /> {% endblock styles%}
-{% block corps %}
+{% block title %} {{ user_profile.user.first_name}} {{user_profile.user.last_name}} {% endblock title %}
 
-<div class="row">
-    <div class="col d-flex justify-content-center align-items-center">
-        <div class="rounded rounded-circle d-flex justify-content-center align-items-center"
-            style="width: 150px; height: 150px; background-color: green">
-            <p class="text-white m-0 fw-bold" style="font-size: 50px">
-                {{username.0|upper }}
-            </p>
-        </div>
-    </div>
-    <div class="col">
 
-        <div class="login-header text-center mx-auto fw-bold bg-dark text-white mb-3">
-            Modifier mes information
+
+
+{% block main %}
+<div class="container">
+    <div class="card shadow">
+        <div class="text-center fw-bold bg-dark text-white py-3 mb-3">
+            Updating profile iformations
         </div>
-        <div style="width: 80%" class="m-auto form-group has-warning has-feddback">
+        <div class="px-5 pb-3">
+                    <div class="profil-pic-container mb-5">
+                        <div class="mx-auto profile-pic">
+                            {% if user_profile.profilepicture == true %}
+                            <div class="nopic d-flex text-white fw-bold justify-content-center align-items-center p-0 m-0">
+                                <p class="p-0 m-0">{{user.username.0|upper}}</p>
+                            </div>
+                            {% else %}
+                            <img src="{{user_profile.profilicture}}" alt="{{user.username}} image">
+                            {% endif%}
+                    
+                            {% if user_profile.user == user %}
+                            <a class="btn btn-primary edit-profil-pic" href="{%url 'users_app:profile_pic' user.pk %}"><i
+                                    class="fas fa-pen"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% for field in userForm %} {{ field }} {% endfor %}
                 {% for field in profileForm %} {{ field }} {% endfor %}
-                <button class="btn btn-primary form-control" type="submit">Enregistrer</button>
+                <div>
+                    <a class="btn btn-secondary w-25" href="{% url 'users_app:profile' user.pk%}">Cancel</a>
+                    <button class="btn btn-primary w-25" type="submit">Save</button>
+                </div>
             </form>
         </div>
     </div>
 </div>
-{% endblock corps %}
+{% endblock %}
