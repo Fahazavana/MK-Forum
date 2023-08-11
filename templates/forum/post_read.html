@@ -8,18 +8,23 @@
     <div class="row">
         <div class="col-12">
             <div class="d-flex align-items-center">
-                <div class="container-profile-picture2">
-                    {% if Post.profile.profilepicture == true %}
+
+
+                <div class="mx-auto container-profile-picture-thumbnail">
+                    {% if Post.authorPost.profile.profilepicture == '' %}
                     <div
-                        class="container-profile-picture-create d-flex text-white fw-bold justify-content-center align-items-center p-0 m-0">
-                        <p class="nopic-small p-0 m-0">{{Post.authorPost.username.0|upper}}</p>
+                        class="nopic-small d-flex text-white fw-bold justify-content-center align-items-center p-0 m-0">
+                        <div class="p-0 m-0">{{Post.authorPost.username.0|upper}}</div>
                     </div>
                     {% else %}
-                    <div class="container-profile-picture-create">
-                        <img class="profile-picture" src="{{Post.authorPost.profile.profilepicture}}" alt="{{user.username}} image">
+                    <div class="container-profile-picture-thumbnail">
+                        <img class="profile-picture" src="{{Post.authorPost.profile.profilepicture}}"
+                            alt="{{user.username}} image">
                     </div>
                     {% endif%}
                 </div>
+
+
                 <div class=" w-100 d-flex justify-content-between">
                     <div class="ps-5 fw-bold">
                         {{ Post.titlePost }}
@@ -69,19 +74,22 @@
     <div class="row mt-5">
         <div class="col-12">
             <div class="d-flex align-items-center">
-                <div class="container-profile-picture2">
-                    {% if comment.commentAuthor.profilepicture == true %}
-                    <div
-                        class="container-profile-picture-create d-flex text-white fw-bold justify-content-center align-items-center p-0 m-0">
-                        <p class="nopic-small p-0 m-0">{{comment.commentAuthor.username.0|upper}}</p>
+                <div class="mx-auto container-profile-picture-thumbnail">
+                    {% if comment.commentAuthor.profile.profilepicture == '' %}
+                    <div class="nopic-small d-flex text-white fw-bold justify-content-center align-items-center p-0 m-0">
+                        <div class="p-0 m-0">{{comment.commentAuthor.username.0|upper}}</div>
                     </div>
                     {% else %}
-                    <div class="container-profile-picture-create">
-                        <img class="profile-picture" src="{{comment.commentAuthor.profile.profilepicture}}" alt="{{user.username}} image">
+                    <div class="container-profile-picture-thumbnail">
+                        <img class="profile-picture" src="{{comment.commentAuthor.profile.profilepicture}}" alt="{{comment.commentAuthor.username}} image">
                     </div>
                     {% endif%}
                     <p class="text-center">{{comment.commentAuthor.username}}</p>
                 </div>
+            
+
+
+                
                 <div class=" w-100 d-flex align-items-center p-2 flex-column">
                     <p>{{comment.contentComment}}</p>
 

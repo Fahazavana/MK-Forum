@@ -85,7 +85,8 @@
     <!-- bootstrap js -->
     <script src="{% static 'bs5/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'fontawesome/js/all.min.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     {% block script %} {% endblock %}
 </body>
 

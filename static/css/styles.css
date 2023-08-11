@@ -19,14 +19,23 @@ body {
   padding: 2px;
 }
 
-.profile-picture, .nopic {
+.container-profile-picture-thumbnail {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.profile-picture,
+.nopic,
+.nopic-small {
   width: 100%;
   height: auto;
   object-fit: cover;
   border-radius: 50%;
   border: 3px solid #212529;
 }
-.nopic{
+
+.nopic {
   height: 100%;
   font-size: 10rem;
   background-color: green;
@@ -34,16 +43,13 @@ body {
   font-weight: 900;
 }
 
-.nopic-small{
+.nopic-small {
+  width: 60px;
   height: 100%;
-  width: 100%;
-  font-size: 2.5rem;
+  font-size: 2rem;
+  background-color: green;
   color: white;
   font-weight: 900;
-  border-radius: 50%;
-  text-align: center;
-  background-color: green;
-  border: 3px solid #212529;
 }
 
 /* Handling form */
@@ -77,22 +83,25 @@ body {
   border: 5px solid #212529;
   object-fit: contain;
 }
-.btn.edit-profil-pic{
+.btn.edit-profil-pic {
   width: max-content;
   height: max-content;
 }
 .edit-profil-pic {
   position: relative;
-  left:83%;
+  left: 83%;
   bottom: 36px;
 }
-.profil-item{
+.profil-item {
   margin: 0;
   padding: 0;
 }
 
 /* New post */
 
-.post-title:focus{
-  color:#212529;
+.form-control.post-title{
+  color: #fff;
+}
+.form-control.post-title:focus {
+  color: #212529 !important;
 }

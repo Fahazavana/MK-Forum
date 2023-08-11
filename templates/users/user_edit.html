@@ -13,12 +13,12 @@
         <div class="px-5 pb-3">
                     <div class="profil-pic-container mb-5">
                         <div class="mx-auto profile-pic">
-                            {% if user_profile.profilepicture == true %}
+                            {% if user_profile.profilepicture == '' %}
                             <div class="nopic d-flex text-white fw-bold justify-content-center align-items-center p-0 m-0">
                                 <p class="p-0 m-0">{{user.username.0|upper}}</p>
                             </div>
                             {% else %}
-                            <img src="{{user_profile.profilicture}}" alt="{{user.username}} image">
+                            <img src="{{user.profile.profilepicture}}" alt="{{user.username}} image">
                             {% endif%}
                     
                             {% if user_profile.user == user %}

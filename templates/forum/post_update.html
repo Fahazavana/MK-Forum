@@ -10,13 +10,13 @@
     <form method="POST" class="card shadow">
         {% csrf_token%}
         <div class="d-flex align-items-center fw-bold bg-dark text-white">
-            <div class="container-profile-picture">{% if user.profile.profilepicture == true %}
-                <div
-                    class="container-profile-picture-create d-flex text-white fw-bold justify-content-center align-items-center p-0 m-0">
-                    <p class="nopic-small p-0 m-0">{{user.username.0|upper}}</p>
+            <div class="mx-auto container-profile-picture-thumbnail">
+                {% if user.profile.profilepicture == '' %}
+                <div class="nopic-small d-flex text-white fw-bold justify-content-center align-items-center p-0 m-0">
+                    <div class="p-0 m-0">{{user.username.0|upper}}</div>
                 </div>
                 {% else %}
-                <div class="container-profile-picture-create">
+                <div class="container-profile-picture-thumbnail">
                     <img class="profile-picture" src="{{user.profile.profilepicture}}" alt="{{user.username}} image">
                 </div>
                 {% endif%}

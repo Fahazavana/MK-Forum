@@ -66,7 +66,7 @@ def registerUser(request):
             to_email = form.cleaned_data['email']
             email = EmailMessage(mail_subject, email_content, to=[to_email])
             email.send()
-            return redirect("user_app:login")
+            return redirect("users_app:login")
     else:
         form = UserRegistrationForm()
     return render(request, 'users/user_register.html', {'form': form})
@@ -92,7 +92,7 @@ def activate(request, uidb64, token):
     else:
         messages.warning(request, "Lien invalide")
 
-    return redirect('user_app:login')
+    return redirect('users_app:login')
 
 
 class ResetPasswordView(PasswordResetView):
@@ -102,7 +102,7 @@ class ResetPasswordView(PasswordResetView):
     email_template_name = "users/user_reset_password_email.html"
     template_name = "users/user_reset_password.html"
     form_class = FormResetPassword
-    success_url = reverse_lazy("user_app:password_reset_done")
+    success_url = reverse_lazy("users_app:password_reset_done")
 
 
 class NewPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
@@ -122,7 +122,7 @@ class NewPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
         return response
 
     def get_success_url(self, **kwargs):
-        return reverse_lazy('user_app:profile', kwargs={'pk': self.kwargs['pk']})
+        return reverse_lazy('users_app:profile', kwargs={'pk': self.kwargs['pk']})
 
 
 class ProfileView(LoginRequiredMixin, DetailView):
@@ -160,7 +160,7 @@ def updateUserProfile(request, pk):
             profile.user = user_form
             profile.save()
             messages.success(request, "Information mis a jour avec succes")
-            return redirect('user_app:profile', pk)
+            return redirect('users_app:profile', pk)
     else:
         username = User.objects.get(pk=pk).username
         userForm = UpdateUserForm(instance=request.user)

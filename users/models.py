@@ -40,7 +40,7 @@ class Profile(models.Model):
     profile_pic = models.ImageField(null=True,blank=True,default=None)
 
     @property
-    def profilpicture(self):
+    def profilepicture(self):
         if self.profile_pic:
             return self.profile_pic.url 
         return ''
@@ -48,6 +48,6 @@ class Profile(models.Model):
         return "{} {}".format(self.user.id, self.user.username)
 
     def get_absolute_url(self):
-        return reverse('user_app:profile', kwargs={'pk': self.pk})
+        return reverse('users_app:profile', kwargs={'pk': self.pk})
     
     

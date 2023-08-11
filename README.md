@@ -17,11 +17,13 @@ The aim of this project is to create a simple forum dedicated to mathematics and
 
 Mk-forum includes the following features:
 
-* User Accounts: create, reset passwords, delete accounts, and profile management
+* User: Auth system, as the user can manage their account: create, update profile information,  change profile picture.
 * Posts: Create, Read, Update (modify), and Delete
-* Comments: Users can comment on posts
-* Reactions: Users can react to posts
+* Comments: Users can create, update and delete a 
+comment on post
+* Reactions: Users can react to posts or a  comment (Up or down)
 
+*Next task: permit to the user to delete their profile picture, notification on comment or on react on Post/Comment*
 ## Getting Started
 
 To get started with Mk-forum, you will need Python 3 installed on your machine. You also need to install the required packages by running `pip install -r requirements.txt` in your command line interface. Next, create an `.env` file following the `.env_template`. Once you have these prerequisites, you can clone the repository and run the server using the following command: `python manage.py runserver`.
